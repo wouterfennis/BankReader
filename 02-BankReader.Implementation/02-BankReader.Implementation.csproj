@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>BankReader.Implementation</RootNamespace>
+    <AssemblyName>BankReader.Implementation</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\04-BankReader.Data\04-BankReader.Data.csproj" />
+  </ItemGroup>
+
+</Project>
