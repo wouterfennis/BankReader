@@ -13,12 +13,10 @@ namespace BankReader.Data.UnitTests.Csv.Converters
     public class DirectionConverterTests
     {
         private TransactionDirectionConverter _transactionDirectionConverter;
-        private Fixture _fixture;
 
         [TestInitialize]
-        public void Initalize()
+        public void Initialize()
         {
-            _fixture = new Fixture();
             _transactionDirectionConverter = new TransactionDirectionConverter();
         }
 

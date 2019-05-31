@@ -5,6 +5,6 @@ namespace BankReader.Data.Json
 {
     public interface IJsonReader
     {
-        IEnumerable<CategoryRule> ReadRules(string path);
+        IList<CategoryRule> ReadRules(string path);
     }
 }

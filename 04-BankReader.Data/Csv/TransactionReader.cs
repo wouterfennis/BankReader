@@ -16,7 +16,7 @@ namespace BankReader.Data.Csv
             _textStreamFactory = textStreamFactory;
         }
 
-        public IEnumerable<Transaction> ReadCsv(string filePath)
+        public IList<Transaction> ReadCsv(string filePath)
         {
             using (var reader = _textStreamFactory.Create(filePath))
             using (var csv = new CsvReader(reader))

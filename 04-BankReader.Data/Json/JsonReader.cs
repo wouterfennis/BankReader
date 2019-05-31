@@ -15,12 +15,12 @@ namespace BankReader.Data.Json
             _textStreamFactory = textStreamFactory;
         }
 
-        public IEnumerable<CategoryRule> ReadRules(string path)
+        public IList<CategoryRule> ReadRules(string path)
         {
             using (TextReader textReader = _textStreamFactory.Create(path))
             {
                 var json = textReader.ReadToEnd();
-                return JsonConvert.DeserializeObject<IEnumerable<CategoryRule>>(json);
+                return JsonConvert.DeserializeObject<IList<CategoryRule>>(json);
             }
         }
     }

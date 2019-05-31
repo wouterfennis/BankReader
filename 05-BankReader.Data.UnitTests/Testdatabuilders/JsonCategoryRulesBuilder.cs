@@ -20,7 +20,6 @@ namespace BankReader.Data.UnitTests.TestdataBuilders
             {
                 Category = Category.Tax,
                 Descriptions = new[] { "belasting" }
-
             });
             return this;
         }

@@ -11,7 +11,7 @@ namespace BankReader.Data.Models
 
         public bool Validate(Transaction transaction)
         {
-            return Descriptions.Any(description => transaction.Description.ToUpper().Contains(description));
+            return Descriptions.Any(description => transaction.Description.ToUpper().Contains(description.ToUpper()));
         }
     }
 }

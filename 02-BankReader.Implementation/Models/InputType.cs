@@ -2,6 +2,8 @@
 {
     public enum InputType
     {
-        Csv,
+        Json,
+        Database,
+        Csv
     }
 }

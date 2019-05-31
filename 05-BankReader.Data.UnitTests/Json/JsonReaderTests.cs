@@ -5,34 +5,45 @@ using BankReader.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 using System.IO;
 using System.Linq;
+using BankReader.Data.Models;
 
 namespace BankReader.Data.UnitTests.Json
 {
     [TestClass]
     public class JsonReaderTests
     {
+        private Mock<ITextStreamFactory> _textStreamFactoryMock;
+        private JsonReader _jsonReader;
+        private JsonCategoryRulesBuilder _testdataBuilder;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            _testdataBuilder = new JsonCategoryRulesBuilder();
+
+            _textStreamFactoryMock = new Mock<ITextStreamFactory>();
+            _jsonReader = new JsonReader(_textStreamFactoryMock.Object);
+        }
+
         [TestMethod]
         public void ReadRules_WithValidJSON_ReturnsRules()
         {
             // Arrange
-            string expectedPath = "path";
+            string expectedPath = "D:/somePath";
 
-            var testdataBuilder = new JsonCategoryRulesBuilder();
-            string json = testdataBuilder.AddTaxRule()
+            string json = _testdataBuilder.AddTaxRule()
                                          .Build();
             var stringReader = new StringReader(json);
-            var textStreamFactoryMock = new Mock<ITextStreamFactory>();
 
-            textStreamFactoryMock
+            _textStreamFactoryMock
                 .Setup(mock => mock.Create(expectedPath))
                 .Returns(stringReader);
 
-            var jsonReader = new JsonReader(textStreamFactoryMock.Object);
-
             // Act
-            var result = jsonReader.ReadRules(expectedPath);
+            var result = _jsonReader.ReadRules(expectedPath);
 
             // Assert
             result.Should().HaveCount(1);
@@ -41,6 +52,26 @@ namespace BankReader.Data.UnitTests.Json
             categoryRule.Descriptions.Should().HaveCount(1);
             var description = categoryRule.Descriptions.ElementAt(0);
             description.Should().Be("belasting");
+        }
+
+        [TestMethod]
+        public void ReadRules_WithInvalidJSON_ThrowsException()
+        {
+            // Arrange
+            string expectedPath = "D:/somePath";
+
+            string json = "invalidJSON";
+            var stringReader = new StringReader(json);
+
+            _textStreamFactoryMock
+                .Setup(mock => mock.Create(expectedPath))
+                .Returns(stringReader);
+
+            // Act
+            Action action = () => _jsonReader.ReadRules(expectedPath);
+
+            // Assert
+            action.Should().Throw<Exception>();
         }
     }
 }
