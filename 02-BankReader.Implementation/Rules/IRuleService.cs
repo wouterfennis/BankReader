@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BankReader.Data.Models;
 
-namespace BankReader.Implementation.Services
+namespace BankReader.Implementation.Rules
 {
     public interface IRuleService
     {

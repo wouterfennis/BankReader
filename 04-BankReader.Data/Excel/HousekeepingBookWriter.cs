@@ -11,7 +11,7 @@ namespace BankReader.Data.Excel
 {
     public class HousekeepingBookWriter : IHousekeepingBookWriter
     {
-        public string[] headerColumns = {
+        private string[] _headerColumns = {
             "Categorie",
             "Januari",
             "Februari",
@@ -26,7 +26,7 @@ namespace BankReader.Data.Excel
             "November",
             "December",
             "Totaal per jaar",
-            "Gemiddeld per jaar"
+            "Gemiddeld per maand"
         };
 
         public void Write(IEnumerable<HouseholdPost> houseHoldPosts)
@@ -114,7 +114,7 @@ namespace BankReader.Data.Excel
             yIndex++;
 
             int xIndex = 1;
-            foreach (string headerColumn in headerColumns)
+            foreach (string headerColumn in _headerColumns)
             {
                 var cell = worksheet.Cells[yIndex, xIndex];
                 cell.Value = headerColumn;

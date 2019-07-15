@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using BankReader.Data.Json;
 using BankReader.Data.Models;
-using BankReader.Implementation.Services;
 using BankReader.Implementation.Wrappers;
 
 namespace BankReader.Implementation.Rules

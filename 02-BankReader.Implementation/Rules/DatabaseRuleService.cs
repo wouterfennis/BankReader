@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using BankReader.Data.Models;
-using BankReader.Implementation.Services;
 
 namespace BankReader.Implementation.Rules
 {

@@ -1,17 +1,9 @@
 ﻿using Autofac.Features.Indexed;
-using BankReader.Data.Csv;
-using BankReader.Data.Csv.Models;
 using BankReader.Data.Excel;
-using BankReader.Data.Json;
-using BankReader.Implementation;
 using BankReader.Implementation.Models;
 using BankReader.Implementation.Services;
 using BankReader.Implementation.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+using BankReader.Implementation.Rules;
 using BankReader.Implementation.Transactions;
 
 namespace BankReader.ConsoleHost
@@ -22,7 +14,7 @@ namespace BankReader.ConsoleHost
         private readonly ICategoryService _categoryService;
         private readonly IHousekeepingBookWriter _housekeepingBookWriter;
         private readonly IIndex<InputType, IRuleService> _ruleServices;
-        private IIndex<InputType, ITransactionService> _transactionServices;
+        private readonly IIndex<InputType, ITransactionService> _transactionServices;
 
         public Application(IConsoleScreen consoleScreen,
             IIndex<InputType, IRuleService> ruleServices,
