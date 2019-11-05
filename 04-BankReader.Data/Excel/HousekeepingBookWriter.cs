@@ -39,21 +39,23 @@ namespace BankReader.Data.Excel
             {
                 //A workbook must have at least one cell, so lets add one... 
                 ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Huishoudboek");
-                var writer = new ExcelWriter(worksheet, 1, 1);
-                writer.Write("Uitgaven");
-                writer.SetBackgroundColor(244, 60, 50);
 
-                PrintHeader(writer);
+                int yIndex = 1;
+                var expensesHeaderCell = worksheet.Cells[yIndex, 1];
+                expensesHeaderCell.Value = "Uitgaven";
+                expensesHeaderCell.SetBackgroundColor(244, 60, 50);
 
-                //PrintTransacties(writer, expenses);
-                writer.MoveDown()
-                    .MoveDown()
-                    .NewLine()
-                    .Write("Inkomsten")
-                    .SetBackgroundColor(60, 200, 30)
-                    .MoveDown();
+                yIndex = PrintHeader(worksheet, yIndex);
 
-                PrintHeader(writer);
+                yIndex = PrintTransacties(expenses, worksheet, yIndex);
+                yIndex = yIndex + 2;
+
+                var incomeHeaderCell = worksheet.Cells[yIndex, 1];
+                incomeHeaderCell.Value = "Inkomsten";
+                incomeHeaderCell.SetBackgroundColor(60, 200, 30);
+
+                yIndex++;
+                yIndex = PrintHeader(worksheet, yIndex);
                 yIndex = PrintTransacties(income, worksheet, yIndex);
 
                 excelPackage.SaveAs(new FileInfo(@"C:\Users\woute\Downloads\test.xlsx"));
@@ -107,16 +109,21 @@ namespace BankReader.Data.Excel
             return datum.Month + 1;
         }
 
-        private void PrintHeader(ExcelWriter writer)
+        private int PrintHeader(ExcelWorksheet worksheet, int yIndex)
         {
-            writer.NewLine();
+            yIndex++;
+
+            int xIndex = 1;
             foreach (string headerColumn in _headerColumns)
             {
-                writer.Write(headerColumn)
-                .SetBackgroundColor(215, 220, 225)
-                .MoveRight();
+                var cell = worksheet.Cells[yIndex, xIndex];
+                cell.Value = headerColumn;
+                cell.SetBackgroundColor(215, 220, 225);
+                cell.AutoFitColumns();
+                xIndex++;
             }
-            writer.MoveDown();
+            yIndex++;
+            return yIndex;
         }
     }
 }
