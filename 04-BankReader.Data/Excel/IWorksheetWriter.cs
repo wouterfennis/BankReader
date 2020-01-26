@@ -21,6 +21,6 @@ namespace BankReader.Data.Excel
 
         void Write(string value);
 
-        void PlaceFormula(Point startPosition, Point endPosition, Point resultPosition);
+        void PlaceFormula(Point startPosition, Point endPosition, Point resultPosition, FormulaType formulaType);
     }
 }
