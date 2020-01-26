@@ -8,6 +8,8 @@ namespace BankReader.Data.Excel
     {
         private readonly ExcelWorksheet _excelWorksheet;
         private Color _currentColor;
+        private readonly int DefaultXPosition = 1;
+        private readonly int DefaultYPosition = 1;
 
         public Point CurrentPosition { get; set; }
 
@@ -16,51 +18,60 @@ namespace BankReader.Data.Excel
         public ExcelWorksheetWriter(ExcelWorksheet excelWorksheet)
         {
             _excelWorksheet = excelWorksheet;
+            CurrentPosition = new Point(DefaultXPosition, DefaultYPosition);
         }
 
-        public void MoveDown()
+        public IWorksheetWriter MoveDown()
         {
             CurrentPosition = new Point(CurrentPosition.X, CurrentPosition.Y + 1);
+            return this;
         }
 
-        public void MoveUp()
+        public IWorksheetWriter MoveUp()
         {
             CurrentPosition = new Point(CurrentPosition.X, CurrentPosition.Y - 1);
+            return this;
         }
 
-        public void MoveLeft()
+        public IWorksheetWriter MoveLeft()
         {
             CurrentPosition = new Point(CurrentPosition.X - 1, CurrentPosition.Y);
+            return this;
         }
 
-        public void MoveRight()
+        public IWorksheetWriter MoveRight()
         {
             CurrentPosition = new Point(CurrentPosition.X + 1, CurrentPosition.Y);
+            return this;
         }
 
-        public void SetColor(Color color)
+        public IWorksheetWriter SetColor(Color color)
         {
             _currentColor = color;
+            return this;
         }
 
-        public void Write(decimal value)
+        public IWorksheetWriter Write(decimal value)
         {
             CurrentCell.ConvertToEuro();
             Write(value);
+            return this;
         }
 
-        public void Write(string value)
+        public IWorksheetWriter Write(string value)
         {
             Write(value);
+            return this;
         }
 
-        private void Write(object value)
+        private IWorksheetWriter Write(object value)
         {
             CurrentCell.SetBackgroundColor(_currentColor);
             CurrentCell.Value = value;
+            return this;
         }
 
-        public void PlaceFormula(Point startPosition, Point endPosition, Point resultPosition, FormulaType formulaType)
+        public IWorksheetWriter PlaceFormula(Point startPosition, Point endPosition, Point resultPosition, FormulaType formulaType)
         {
             var startCell = _excelWorksheet.GetCell(startPosition);
             var endCell = _excelWorksheet.GetCell(endPosition);
@@ -68,6 +79,7 @@ namespace BankReader.Data.Excel
 
             var formula = $"={formulaType}({startCell.Address}:{endCell.Address})";
             resultCell.Formula = formula;
+            return this;
         }
     }
 }

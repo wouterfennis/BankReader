@@ -40,68 +40,91 @@ namespace BankReader.Data.Excel
                 //A workbook must have at least one cell, so lets add one... 
                 ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Huishoudboek");
 
-                int yIndex = 1;
-                var expensesHeaderCell = worksheet.Cells[yIndex, 1];
-                expensesHeaderCell.Value = "Uitgaven";
-                expensesHeaderCell.SetBackgroundColor(244, 60, 50);
+                var worksheetWriter = new ExcelWorksheetWriter(worksheet);
 
-                yIndex = PrintHeader(worksheet, yIndex);
+                worksheetWriter
+                    .Write("Uitgaven")
+                    .SetColor(System.Drawing.Color.Red)
+                    .MoveDown();
 
-                yIndex = PrintTransacties(expenses, worksheet, yIndex);
-                yIndex = yIndex + 2;
+                foreach (string headerColumn in _headerColumns)
+                {
+                    worksheetWriter
+                        .Write(headerColumn)
+                        .SetColor(System.Drawing.Color.Red)
+                        .MoveRight();
+                    //var cell = worksheet.Cells[yIndex, xIndex];
+                    //cell.Value = headerColumn;
+                    //cell.SetBackgroundColor(215, 220, 225);
+                    //cell.AutoFitColumns();
+                    //xIndex++;
+                }
 
-                var incomeHeaderCell = worksheet.Cells[yIndex, 1];
-                incomeHeaderCell.Value = "Inkomsten";
-                incomeHeaderCell.SetBackgroundColor(60, 200, 30);
+                worksheetWriter.MoveDown();
+                //                yIndex++;
 
-                yIndex++;
-                yIndex = PrintHeader(worksheet, yIndex);
-                yIndex = PrintTransacties(income, worksheet, yIndex);
+                //int yIndex = 1;
+                //var expensesHeaderCell = worksheet.Cells[yIndex, 1];
+                //expensesHeaderCell.Value = "Uitgaven";
+                //expensesHeaderCell.SetBackgroundColor(244, 60, 50);
+
+                //    yIndex = PrintHeader(worksheet, yIndex);
+
+                PrintTransacties(expenses, worksheetWriter);
+                //yIndex = yIndex + 2;
+
+                //var incomeHeaderCell = worksheet.Cells[yIndex, 1];
+                //incomeHeaderCell.Value = "Inkomsten";
+                //incomeHeaderCell.SetBackgroundColor(60, 200, 30);
+
+                //yIndex++;
+                //yIndex = PrintHeader(worksheet, yIndex);
+                //yIndex = PrintTransacties(income, worksheet, yIndex);
 
                 excelPackage.SaveAs(new FileInfo(@"C:\Users\woute\Downloads\test.xlsx"));
             }
         }
 
-        private int PrintTransacties(IEnumerable<HouseholdPost> householdPosts, ExcelWorksheet worksheet, int yIndex)
+        private void PrintTransacties(IEnumerable<HouseholdPost> householdPosts, IWorksheetWriter worksheetWriter)
         {
-            int topIndex = yIndex;
+            int topIndex = worksheetWriter.CurrentPosition.Y;
             foreach (var householdPost in householdPosts)
             {
-                var transactieRow = worksheet.SelectedRange[yIndex, 1, yIndex, 15];
-                transactieRow.ConvertToEuro();
-
-                worksheet.Cells[yIndex, 1].Value = householdPost.Category;
+                worksheetWriter.Write(householdPost.Category.ToString());
+                //worksheet.Cells[yIndex, 1].Value = householdPost.Category;
 
                 foreach (var householdTransaction in householdPost.Transactions)
                 {
                     var maandXIndex = BepaalMaandIndex(householdTransaction.Date);
-                    var cell = worksheet.Cells[yIndex, maandXIndex];
-                    cell.Value = householdTransaction.Amount;
+                    worksheetWriter.CurrentPosition = new System.Drawing.Point(maandXIndex, worksheetWriter.CurrentPosition.Y);
+                    //var cell = worksheet.Cells[yIndex, maandXIndex];
+                    worksheetWriter.Write(householdTransaction.Amount);
+                    //cell.Value = householdTransaction.Amount;
                 }
-                worksheet.Cells[yIndex, 14].SetSumFormula(worksheet.Cells[yIndex, 2], worksheet.Cells[yIndex, 13]);
-                worksheet.Cells[yIndex, 15].SetAverageFormula(worksheet.Cells[yIndex, 2], worksheet.Cells[yIndex, 13]);
-
-                transactieRow.AutoFitColumns();
-                yIndex++;
+                worksheetWriter.PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(14, worksheetWriter.CurrentPosition.Y), FormulaType.SUM);
+                worksheetWriter.PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(15, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE);
+                //    worksheet.Cells[yIndex, 14].SetSumFormula(worksheet.Cells[yIndex, 2], worksheet.Cells[yIndex, 13]);
+                //    worksheet.Cells[yIndex, 15].SetAverageFormula(worksheet.Cells[yIndex, 2], worksheet.Cells[yIndex, 13]);
+                worksheetWriter.MoveDown();
+                //   yIndex++;
             }
 
-            var monthTotalRow = worksheet.SelectedRange[yIndex, 1, yIndex, 15];
-            monthTotalRow.ConvertToEuro();
+            worksheetWriter.CurrentPosition = new System.Drawing.Point(worksheetWriter.CurrentPosition.Y, 1);
+            worksheetWriter.Write("Totaal per maand");
 
-            worksheet.Cells[yIndex, 1].Value = "Totaal per maand";
+            //worksheet.Cells[yIndex, 1].Value = "Totaal per maand";
             for (int i = 2; i < 14; i++)
             {
-                var totalPerMonthCell = worksheet.Cells[yIndex, i];
-                totalPerMonthCell.ConvertToEuro();
-                totalPerMonthCell.SetSumFormula(worksheet.Cells[topIndex, i], worksheet.Cells[yIndex - 1, i]);
-                totalPerMonthCell.SetBackgroundColor(105, 185, 235);
+                worksheetWriter.PlaceFormula(new System.Drawing.Point(i, topIndex), new System.Drawing.Point(i, worksheetWriter.CurrentPosition.Y - 1), new System.Drawing.Point(worksheetWriter.CurrentPosition.Y, i), FormulaType.SUM);
+
+              //  totalPerMonthCell.SetSumFormula(worksheet.Cells[topIndex, i], worksheet.Cells[yIndex - 1, i]);
             }
             // Jaar totaal
-            worksheet.Cells[yIndex, 14].SetSumFormula(worksheet.Cells[yIndex, 2], worksheet.Cells[yIndex, 13]);
-            worksheet.Cells[yIndex, 15].SetAverageFormula(worksheet.Cells[yIndex, 2], worksheet.Cells[yIndex, 13]);
-            monthTotalRow.AutoFitColumns();
 
-            return yIndex;
+            worksheetWriter.PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(14, worksheetWriter.CurrentPosition.Y), FormulaType.SUM);
+            worksheetWriter.PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(15, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE);
+
+         //   return yIndex;
         }
 
         private int BepaalMaandIndex(DateTime datum)
@@ -109,21 +132,9 @@ namespace BankReader.Data.Excel
             return datum.Month + 1;
         }
 
-        private int PrintHeader(ExcelWorksheet worksheet, int yIndex)
-        {
-            yIndex++;
+        //private int PrintHeader(ExcelWorksheet worksheet, int yIndex)
+        //{
 
-            int xIndex = 1;
-            foreach (string headerColumn in _headerColumns)
-            {
-                var cell = worksheet.Cells[yIndex, xIndex];
-                cell.Value = headerColumn;
-                cell.SetBackgroundColor(215, 220, 225);
-                cell.AutoFitColumns();
-                xIndex++;
-            }
-            yIndex++;
-            return yIndex;
-        }
+        //}
     }
 }

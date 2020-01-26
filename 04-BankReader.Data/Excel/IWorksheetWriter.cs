@@ -7,20 +7,22 @@ namespace BankReader.Data.Excel
 {
     public interface IWorksheetWriter
     {
-        void MoveUp();
+        Point CurrentPosition { get; set; }
 
-        void MoveDown();
+        IWorksheetWriter MoveUp();
 
-        void MoveLeft();
+        IWorksheetWriter MoveDown();
 
-        void MoveRight();
+        IWorksheetWriter MoveLeft();
 
-        void SetColor(Color color);
+        IWorksheetWriter MoveRight();
 
-        void Write(decimal value);
+        IWorksheetWriter SetColor(Color color);
 
-        void Write(string value);
+        IWorksheetWriter Write(decimal value);
 
-        void PlaceFormula(Point startPosition, Point endPosition, Point resultPosition, FormulaType formulaType);
+        IWorksheetWriter Write(string value);
+
+        IWorksheetWriter PlaceFormula(Point startPosition, Point endPosition, Point resultPosition, FormulaType formulaType);
     }
 }
