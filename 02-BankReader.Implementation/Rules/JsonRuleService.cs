@@ -18,7 +18,7 @@ namespace BankReader.Implementation.Rules
 
         public IList<CategoryRule> RetrieveRules()
         {
-            var path = _consoleScreen.AskForPath("rule json");
+            var path = @"C:\Git\BankReader\test.json";// _consoleScreen.AskForPath("rule json");
             return _jsonReader.ReadRules(path);
         }
     }

@@ -18,7 +18,7 @@ namespace BankReader.Implementation.Transactions
 
         public IList<Transaction> RetrieveTransactions()
         {
-            var filePath = _consoleScreen.AskForPath("CSV transaction");
+            var filePath = @"C:\Git\BankReader\test.csv";//_consoleScreen.AskForPath("CSV transaction");
 
             IList<Transaction> transactions = _transactionReader.ReadCsv(filePath);
             _consoleScreen.WriteLine($"There are {transactions.Count} transactions in this CSV");

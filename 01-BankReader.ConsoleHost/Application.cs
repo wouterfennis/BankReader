@@ -31,13 +31,13 @@ namespace BankReader.ConsoleHost
 
         public void Run()
         {
-            var ruleInputType = _consoleScreen.AskForInputType("rules");
-            var ruleService = _ruleServices[ruleInputType];
-            var rules =  ruleService.RetrieveRules();
+            InputType ruleInputType = InputType.Json;//_consoleScreen.AskForInputType("rules");
+            IRuleService ruleService = _ruleServices[ruleInputType];
+            System.Collections.Generic.IList<Data.Models.CategoryRule> rules =  ruleService.RetrieveRules();
 
-            var transactionInputType = _consoleScreen.AskForInputType("transactions");
-            var transactionService = _transactionServices[transactionInputType];
-            var transactions = transactionService.RetrieveTransactions();
+            InputType transactionInputType = InputType.Csv;//_consoleScreen.AskForInputType("transactions");
+            ITransactionService transactionService = _transactionServices[transactionInputType];
+            System.Collections.Generic.IList<Data.Csv.Models.Transaction> transactions = transactionService.RetrieveTransactions();
 
             var houseHoldPosts = _categoryService.Categorise(rules, transactions);
 

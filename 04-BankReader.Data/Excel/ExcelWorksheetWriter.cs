@@ -1,5 +1,6 @@
 ﻿using BankReader.Data.Excel.Extensions;
 using OfficeOpenXml;
+using System;
 using System.Drawing;
 
 namespace BankReader.Data.Excel
@@ -19,6 +20,7 @@ namespace BankReader.Data.Excel
         {
             _excelWorksheet = excelWorksheet;
             CurrentPosition = new Point(DefaultXPosition, DefaultYPosition);
+            _currentColor = Color.White;
         }
 
         public IWorksheetWriter MoveDown()
@@ -54,20 +56,21 @@ namespace BankReader.Data.Excel
         public IWorksheetWriter Write(decimal value)
         {
             CurrentCell.ConvertToEuro();
-            Write(value);
+            CurrentCell.SetBackgroundColor(_currentColor);
+            CurrentCell.Value = value;
             return this;
         }
 
         public IWorksheetWriter Write(string value)
         {
-            Write(value);
+            CurrentCell.SetBackgroundColor(_currentColor);
+            CurrentCell.Value = value;
             return this;
         }
 
-        private IWorksheetWriter Write(object value)
+        public IWorksheetWriter NewLine()
         {
-            CurrentCell.SetBackgroundColor(_currentColor);
-            CurrentCell.Value = value;
+            CurrentPosition = new Point(DefaultXPosition, CurrentPosition.Y + 1);
             return this;
         }
 
