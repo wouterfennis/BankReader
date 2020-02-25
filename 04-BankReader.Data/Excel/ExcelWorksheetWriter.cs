@@ -74,12 +74,13 @@ namespace BankReader.Data.Excel
             return this;
         }
 
-        public IWorksheetWriter PlaceFormula(Point startPosition, Point endPosition, Point resultPosition, FormulaType formulaType)
+        public IWorksheetWriter PlaceFormula(Point startPosition, Point endPosition, FormulaType formulaType)
         {
             var startCell = _excelWorksheet.GetCell(startPosition);
             var endCell = _excelWorksheet.GetCell(endPosition);
-            var resultCell = _excelWorksheet.GetCell(resultPosition);
+            var resultCell = _excelWorksheet.GetCell(CurrentPosition);
 
+            Write(0);
             var formula = $"={formulaType}({startCell.Address}:{endCell.Address})";
             resultCell.Formula = formula;
             return this;

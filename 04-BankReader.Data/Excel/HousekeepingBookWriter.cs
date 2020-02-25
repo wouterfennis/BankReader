@@ -76,9 +76,13 @@ namespace BankReader.Data.Excel
                     worksheetWriter.CurrentPosition = new System.Drawing.Point(maandXIndex, worksheetWriter.CurrentPosition.Y);
                     worksheetWriter.Write(householdTransaction.Amount);
                 }
-                worksheetWriter.PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(14, worksheetWriter.CurrentPosition.Y), FormulaType.SUM);
-                worksheetWriter.PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(15, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE);
-                worksheetWriter.NewLine();
+                worksheetWriter.CurrentPosition = new System.Drawing.Point(14, worksheetWriter.CurrentPosition.Y);
+                worksheetWriter.SetColor(System.Drawing.Color.LightYellow)
+                .PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), FormulaType.SUM)
+                .MoveRight()
+                .PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE)
+                .SetColor(System.Drawing.Color.White)
+                .NewLine();
             }
 
             worksheetWriter.CurrentPosition = new System.Drawing.Point(1, worksheetWriter.CurrentPosition.Y);
@@ -87,30 +91,16 @@ namespace BankReader.Data.Excel
             for (int i = 2; i < 14; i++)
             {
                 //TODO: remove, below is needed to convert value to euro
+                worksheetWriter.CurrentPosition = new System.Drawing.Point(i, worksheetWriter.CurrentPosition.Y);
                 worksheetWriter
-                    .MoveRight()
                     .SetColor(System.Drawing.Color.LightYellow)
-                    .Write(0);
-                worksheetWriter.PlaceFormula(new System.Drawing.Point(i, topIndex), new System.Drawing.Point(i, worksheetWriter.CurrentPosition.Y - 1), new System.Drawing.Point(i, worksheetWriter.CurrentPosition.Y), FormulaType.SUM);
-
-                //  totalPerMonthCell.SetSumFormula(worksheet.Cells[topIndex, i], worksheet.Cells[yIndex - 1, i]);
+                    .PlaceFormula(new System.Drawing.Point(i, topIndex), new System.Drawing.Point(i, worksheetWriter.CurrentPosition.Y - 1), FormulaType.SUM);
             }
-            //// Jaar totaal
-
-            //worksheetWriter.PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(14, worksheetWriter.CurrentPosition.Y), FormulaType.SUM);
-            //worksheetWriter.PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(15, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE);
-
-            //   return yIndex;
         }
 
         private int BepaalMaandIndex(DateTime datum)
         {
             return datum.Month + 1;
         }
-
-        //private int PrintHeader(ExcelWorksheet worksheet, int yIndex)
-        //{
-
-        //}
     }
 }

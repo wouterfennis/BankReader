@@ -25,6 +25,6 @@ namespace BankReader.Data.Excel
 
         IWorksheetWriter Write(string value);
 
-        IWorksheetWriter PlaceFormula(Point startPosition, Point endPosition, Point resultPosition, FormulaType formulaType);
+        IWorksheetWriter PlaceFormula(Point startPosition, Point endPosition, FormulaType formulaType);
     }
 }
