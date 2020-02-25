@@ -58,15 +58,6 @@ namespace BankReader.Data.Excel
                     .NewLine()
                     .SetColor(System.Drawing.Color.White);
                 PrintTransacties(expenses, worksheetWriter);
-                ////yIndex = yIndex + 2;
-
-                ////var incomeHeaderCell = worksheet.Cells[yIndex, 1];
-                ////incomeHeaderCell.Value = "Inkomsten";
-                ////incomeHeaderCell.SetBackgroundColor(60, 200, 30);
-
-                ////yIndex++;
-                ////yIndex = PrintHeader(worksheet, yIndex);
-                ////yIndex = PrintTransacties(income, worksheet, yIndex);
 
                 excelPackage.SaveAs(new FileInfo(@"C:\Git\BankReader\test.xlsx"));
             }
@@ -87,16 +78,12 @@ namespace BankReader.Data.Excel
                 }
                 worksheetWriter.PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(14, worksheetWriter.CurrentPosition.Y), FormulaType.SUM);
                 worksheetWriter.PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(15, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE);
-                //    worksheet.Cells[yIndex, 14].SetSumFormula(worksheet.Cells[yIndex, 2], worksheet.Cells[yIndex, 13]);
-                //    worksheet.Cells[yIndex, 15].SetAverageFormula(worksheet.Cells[yIndex, 2], worksheet.Cells[yIndex, 13]);
-                worksheetWriter.MoveDown();
-                //   yIndex++;
+                worksheetWriter.NewLine();
             }
 
             worksheetWriter.CurrentPosition = new System.Drawing.Point(1, worksheetWriter.CurrentPosition.Y);
             worksheetWriter.Write("Totaal per maand");
 
-            //worksheet.Cells[yIndex, 1].Value = "Totaal per maand";
             for (int i = 2; i < 14; i++)
             {
                 //TODO: remove, below is needed to convert value to euro
