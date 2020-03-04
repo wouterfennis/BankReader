@@ -5,7 +5,7 @@ namespace BankReader.Implementation.Models
 {
     public class HouseholdTransaction
     {
-        public decimal Amount { get; }
+        public decimal Amount { get; private set; }
         public DateTime Date { get; }
         public TransactionDirection TransactionDirection { get; }
 
@@ -14,6 +14,11 @@ namespace BankReader.Implementation.Models
             Amount = amount;
             Date = date;
             TransactionDirection = transactionDirection;
+        }
+
+        public void RaiseAmount(decimal extraAmount)
+        {
+            Amount = Amount + extraAmount;
         }
     }
 }

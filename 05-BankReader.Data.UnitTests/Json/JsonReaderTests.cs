@@ -16,7 +16,7 @@ namespace BankReader.Data.UnitTests.Json
     public class JsonReaderTests
     {
         private Mock<ITextStreamFactory> _textStreamFactoryMock;
-        private JsonReader _jsonReader;
+        private JsonRuleReader _jsonReader;
         private JsonCategoryRulesBuilder _testdataBuilder;
 
         [TestInitialize]
@@ -25,7 +25,7 @@ namespace BankReader.Data.UnitTests.Json
             _testdataBuilder = new JsonCategoryRulesBuilder();
 
             _textStreamFactoryMock = new Mock<ITextStreamFactory>();
-            _jsonReader = new JsonReader(_textStreamFactoryMock.Object);
+            _jsonReader = new JsonRuleReader(_textStreamFactoryMock.Object);
         }
 
         [TestMethod]

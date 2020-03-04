@@ -8,13 +8,13 @@ namespace BankReader.Implementation.Services
 {
     public class CategoryService : ICategoryService
     {
-        public IEnumerable<HouseholdPost> Categorise(IList<CategoryRule> rules, IList<Transaction> transactions)
+        public IEnumerable<HouseholdPost> Categorise(IEnumerable<CategoryRule> categoryRules, IEnumerable<Transaction> transactions)
         {
             var householdPosts = new List<HouseholdPost>();
 
             foreach (var transaction in transactions)
             {
-                foreach (var categoryRule in rules)
+                foreach (var categoryRule in categoryRules)
                 {
                     if (categoryRule.Validate(transaction))
                     {
@@ -22,41 +22,23 @@ namespace BankReader.Implementation.Services
 
                         if (houseHoldPost == null)
                         {
-                            householdPosts.Add(new HouseholdPost
-                            {
-                                Category = categoryRule.Category,
-                                Transactions = new List<HouseholdTransaction>
-                                {
-                                    new HouseholdTransaction
-                                    {
-                                        Amount = transaction.Amount,
-                                        Date = transaction.Date,
-                                        TransactionDirection = transaction.TransactionDirection
-                                    }
-                                }
-                            });
+                            houseHoldPost = new HouseholdPost(categoryRule.Category);
+                            householdPosts.Add(houseHoldPost);
+                        }
+                        var householdTransaction = houseHoldPost.Transactions.SingleOrDefault(x => x.Date.Month == transaction.Date.Month);
+
+                        if (householdTransaction == null)
+                        {
+                            householdTransaction = new HouseholdTransaction(transaction.Amount, transaction.Date, transaction.TransactionDirection);
+                            houseHoldPost.Transactions.Add(householdTransaction);
                         }
                         else
                         {
-                            var householdTransaction = houseHoldPost.Transactions.SingleOrDefault(x => x.Date.Month == transaction.Date.Month);
-                            if (householdTransaction == null)
-                            {
-                                houseHoldPost.Transactions.Add(new HouseholdTransaction
-                                {
-                                    Amount = transaction.Amount,
-                                    Date = transaction.Date,
-                                    TransactionDirection = transaction.TransactionDirection
-                                });
-                            }
-                            else
-                            {
-                                householdTransaction.Amount = householdTransaction.Amount + transaction.Amount;
-                            }
+                            householdTransaction.RaiseAmount(transaction.Amount);
                         }
                     }
                 }
             }
-
             return householdPosts;
         }
     }

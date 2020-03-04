@@ -7,6 +7,6 @@ namespace BankReader.Implementation.Services
 {
     public interface ICategoryService
     {
-        IEnumerable<HouseholdPost> Categorise(IList<CategoryRule> rules, IList<Transaction> transactions);
+        IEnumerable<HouseholdPost> Categorise(IEnumerable<CategoryRule> rules, IEnumerable<Transaction> transactions);
     }
 }

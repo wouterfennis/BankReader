@@ -6,11 +6,11 @@ using Newtonsoft.Json;
 
 namespace BankReader.Data.Json
 {
-    public class JsonReader : IJsonReader
+    public class JsonRuleReader : IJsonRuleReader
     {
         private readonly ITextStreamFactory _textStreamFactory;
 
-        public JsonReader(ITextStreamFactory textStreamFactory)
+        public JsonRuleReader(ITextStreamFactory textStreamFactory)
         {
             _textStreamFactory = textStreamFactory;
         }

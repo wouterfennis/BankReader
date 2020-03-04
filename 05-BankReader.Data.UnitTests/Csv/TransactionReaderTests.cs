@@ -38,10 +38,10 @@ namespace BankReader.Data.UnitTests.Csv
                 .Setup(mock => mock.Create(expectedPath))
                 .Returns(textStreamMock);
 
-            var transactionReader = new TransactionReader(textStreamFactoryMock.Object);
+            var transactionReader = new CsvTransactionReader(textStreamFactoryMock.Object);
 
             // Act
-            IEnumerable<Transaction> result = transactionReader.ReadCsv(expectedPath);
+            IEnumerable<Transaction> result = transactionReader.ReadTransactions(expectedPath);
 
             // Assert
             result.Should().HaveCount(1);
