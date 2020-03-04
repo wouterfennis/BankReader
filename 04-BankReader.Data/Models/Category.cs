@@ -4,8 +4,11 @@
     {
         Groceries,
         MusicStreaming,
-        Insurance,
+        HealthInsurance,
+        FuneralInsurance,
+        HouseInsurance,
         HomeImprovement,
+        Bank,
         PublicTransit,
         Housing,
         Tax,
@@ -13,8 +16,11 @@
         Clothing,
         Amusement,
         MobilePhone,
-        GasWaterLight,
+        Water,
+        Electricity,
         Salary,
-        Car
+        Car,
+        Restaurant,
+        Purchase
     }
 }

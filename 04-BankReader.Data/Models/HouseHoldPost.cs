@@ -7,9 +7,15 @@ using BankReader.Models;
 
 namespace BankReader.Implementation.Models
 {
-        public class HouseholdPost
+    public class HouseholdPost
+    {
+        public Category Category { get; }
+        public IList<HouseholdTransaction> Transactions { get; }
+
+        public HouseholdPost(Category category)
         {
-            public Category Category { get; set; }
-            public List<HouseholdTransaction> Transactions { get; set; }
+            Category = category;
+            Transactions = new List<HouseholdTransaction>();
         }
+    }
 }

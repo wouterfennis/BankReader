@@ -59,6 +59,27 @@ namespace BankReader.Data.Excel
                     .SetColor(System.Drawing.Color.White);
                 PrintTransacties(expenses, worksheetWriter);
 
+                worksheetWriter.NewLine()
+                    .NewLine();
+
+                worksheetWriter
+                    .SetColor(System.Drawing.Color.Green)
+                    .Write("Inkomsten")
+                    .MoveDown();
+
+                foreach (string headerColumn in _headerColumns)
+                {
+                    worksheetWriter
+                        .SetColor(System.Drawing.Color.WhiteSmoke)
+                        .Write(headerColumn)
+                        .MoveRight();
+                }
+
+                worksheetWriter
+                    .NewLine()
+                    .SetColor(System.Drawing.Color.White);
+                PrintTransacties(income, worksheetWriter);
+
                 excelPackage.SaveAs(new FileInfo(@"C:\Git\BankReader\test.xlsx"));
             }
         }
