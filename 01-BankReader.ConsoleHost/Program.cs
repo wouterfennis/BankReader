@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Autofac;
 using BankReader.Data.Csv;
 using BankReader.Data.Excel;
 using BankReader.Data.Json;
 using BankReader.Data.Utilities;
+using BankReader.Implementation.Providers;
 using BankReader.Implementation.Services;
 using BankReader.Implementation.Wrappers;
 
@@ -12,7 +14,12 @@ namespace BankReader.ConsoleHost
     [ExcludeFromCodeCoverage]
     static class Program
     {
-        private static IContainer CompositionRoot()
+        public static void Main(string[] arguments)
+        {
+            CompositionRoot(arguments).Resolve<Application>().Run();
+        }
+
+        private static IContainer CompositionRoot(string[] arguments)
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<Application>();
@@ -27,12 +34,13 @@ namespace BankReader.ConsoleHost
             builder.RegisterType<CsvTransactionReader>().As<ICsvTransactionReader>();
             builder.RegisterType<JsonRuleReader>().As<IJsonRuleReader>();
 
-            return builder.Build();
-        }
+            string transactionsLocation = arguments.ElementAt(0);
+            string categoryRulesLocation = arguments.ElementAt(1);
 
-        public static void Main()
-        {
-            CompositionRoot().Resolve<Application>().Run();
+            builder.Register(ctx => new TransactionsLocationProvider(transactionsLocation)).As<ITransactionsLocationProvider>();
+            builder.Register(ctx => new CategoryRulesLocationProvider(categoryRulesLocation)).As<ICategoryRulesLocationProvider>();
+
+            return builder.Build();
         }
     }
 }

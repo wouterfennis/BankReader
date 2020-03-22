@@ -41,7 +41,7 @@ namespace BankReader.Data.UnitTests.Csv
             var transactionReader = new CsvTransactionReader(textStreamFactoryMock.Object);
 
             // Act
-            IEnumerable<Transaction> result = transactionReader.ReadTransactions(expectedPath);
+            IEnumerable<Banktransaction> result = transactionReader.ReadTransactions(expectedPath);
 
             // Assert
             result.Should().HaveCount(1);

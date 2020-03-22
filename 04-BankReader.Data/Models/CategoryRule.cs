@@ -9,7 +9,7 @@ namespace BankReader.Data.Models
         public string[] Descriptions { get; set; }
         public Category Category { get; set; }
 
-        public bool Validate(Transaction transaction)
+        public bool Validate(Banktransaction transaction)
         {
             return Descriptions.Any(description => transaction.Description.ToUpper().Contains(description.ToUpper()));
         }

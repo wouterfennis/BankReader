@@ -3,7 +3,7 @@ using CsvHelper.Configuration;
 
 namespace BankReader.Data.Csv.Models
 {
-    public class TransactionMapping : ClassMap<Transaction>
+    public class TransactionMapping : ClassMap<Banktransaction>
     {
         public TransactionMapping()
         {

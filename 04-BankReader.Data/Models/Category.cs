@@ -2,6 +2,7 @@
 {
     public enum Category
     {
+        Unknown,
         Groceries,
         MusicStreaming,
         HealthInsurance,
@@ -21,6 +22,6 @@
         Salary,
         Car,
         Restaurant,
-        Purchase
+        Purchase,
     }
 }

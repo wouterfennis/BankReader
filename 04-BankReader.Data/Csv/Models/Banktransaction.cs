@@ -3,7 +3,7 @@ using BankReader.Models;
 
 namespace BankReader.Data.Csv.Models
 {
-    public class Transaction
+    public class Banktransaction
     {
         public DateTime Date { get; set; }
 

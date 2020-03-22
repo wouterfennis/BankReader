@@ -12,6 +12,6 @@ namespace BankReader.Data.Csv
         /// Reads and parses a CSV to a Transaction
         /// </summary>
         /// <param name="filePath">The path of the CSV</param>
-        IList<Transaction> ReadTransactions(string filePath);
+        IList<Banktransaction> ReadTransactions();
     }
 }

@@ -2,6 +2,7 @@
 using BankReader.Implementation.Services;
 using BankReader.Data.Csv;
 using BankReader.Data.Json;
+using Autofac;
 
 namespace BankReader.ConsoleHost
 {
@@ -11,20 +12,24 @@ namespace BankReader.ConsoleHost
         private readonly IJsonRuleReader _jsonRuleReader;
         private readonly ICategoryService _categoryService;
         private readonly IHousekeepingBookWriter _housekeepingBookWriter;
+        private readonly IContainer container;
 
         public Application(ICsvTransactionReader CsvTransactionReader, 
             IJsonRuleReader jsonRuleReader,
             ICategoryService categoryService,
-            IHousekeepingBookWriter housekeepingBookWriter)
+            IHousekeepingBookWriter housekeepingBookWriter,
+            IContainer container)
         {
             _csvTransactionReader = CsvTransactionReader;
             _jsonRuleReader = jsonRuleReader;
             _categoryService = categoryService;
             _housekeepingBookWriter = housekeepingBookWriter;
+            this.container = container;
         }
 
         public void Run()
         {
+            container.
             var filePathTransactions = @"C:\Git\BankReader\test.csv";
             var transactions = _csvTransactionReader.ReadTransactions(filePathTransactions);
 

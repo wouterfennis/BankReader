@@ -8,11 +8,18 @@ namespace BankReader.Implementation.Services
 {
     public class CategoryService : ICategoryService
     {
-        public IEnumerable<HouseholdPost> Categorise(IEnumerable<CategoryRule> categoryRules, IEnumerable<Transaction> transactions)
+        private readonly ICategoryRuleProvider categoryRuleProvider;
+
+        public CategoryService(ICategoryRuleProvider categoryRuleProvider)
+        {
+            this.categoryRuleProvider = categoryRuleProvider;
+        }
+
+        public IEnumerable<HouseholdPost> Categorise(IEnumerable<CategoryRule> categoryRules, IEnumerable<Banktransaction> transactions)
         {
             var householdPosts = new List<HouseholdPost>();
 
-            foreach (var transaction in transactions)
+            foreach (Banktransaction transaction in transactions)
             {
                 foreach (var categoryRule in categoryRules)
                 {

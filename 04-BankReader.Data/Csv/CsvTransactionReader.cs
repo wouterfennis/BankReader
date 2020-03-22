@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using BankReader.Data.Csv.Models;
+using BankReader.Data.Providers;
 using BankReader.Data.Utilities;
 using CsvHelper;
 
@@ -9,15 +10,18 @@ namespace BankReader.Data.Csv
 {
     public class CsvTransactionReader : ICsvTransactionReader
     {
+        private readonly ITransactionsLocationProvider _transactionsLocationProvider;
         private readonly ITextStreamFactory _textStreamFactory;
 
-        public CsvTransactionReader(ITextStreamFactory textStreamFactory)
+        public CsvTransactionReader(ITransactionsLocationProvider transactionsLocationProvider, ITextStreamFactory textStreamFactory)
         {
+            _transactionsLocationProvider = transactionsLocationProvider;
             _textStreamFactory = textStreamFactory;
         }
 
-        public IList<Transaction> ReadTransactions(string filePath)
+        public IList<Banktransaction> ReadTransactions()
         {
+            var filePath = _transactionsLocationProvider.GetTransactionsLocation();
             using (var reader = _textStreamFactory.Create(filePath))
             using (var csv = new CsvReader(reader))
             {
@@ -25,7 +29,7 @@ namespace BankReader.Data.Csv
                 csv.Configuration.RegisterClassMap<TransactionMapping>();
                 csv.Configuration.Delimiter = ",";
                 csv.Configuration.CultureInfo = CultureInfo.GetCultureInfo("nl-NL");
-                return csv.GetRecords<Transaction>().ToList();
+                return csv.GetRecords<Banktransaction>().ToList();
             }
         }
     }
