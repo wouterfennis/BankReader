@@ -9,6 +9,8 @@ using System;
 using System.IO;
 using System.Linq;
 using BankReader.Data.Models;
+using AutoFixture;
+using BankReader.Data.Providers;
 
 namespace BankReader.Data.UnitTests.Json
 {
@@ -16,24 +18,30 @@ namespace BankReader.Data.UnitTests.Json
     public class JsonReaderTests
     {
         private Mock<ITextStreamFactory> _textStreamFactoryMock;
-        private JsonRuleReader _jsonReader;
+        private Mock<ICategoryRulesLocationProvider> _categoryRulesLocationProvider;
+        private JsonCategoryRuleProvider _sut;
+        private Fixture _fixture;
         private JsonCategoryRulesBuilder _testdataBuilder;
 
         [TestInitialize]
         public void Initialize()
         {
+            _fixture = new Fixture();
             _testdataBuilder = new JsonCategoryRulesBuilder();
 
             _textStreamFactoryMock = new Mock<ITextStreamFactory>();
-            _jsonReader = new JsonRuleReader(_textStreamFactoryMock.Object);
+            _categoryRulesLocationProvider = new Mock<ICategoryRulesLocationProvider>();
+            _sut = new JsonCategoryRuleProvider(_categoryRulesLocationProvider.Object, _textStreamFactoryMock.Object);
         }
 
         [TestMethod]
-        public void ReadRules_WithValidJSON_ReturnsRules()
+        public void ProvideRules_WithValidJSON_ReturnsRules()
         {
             // Arrange
-            string expectedPath = "D:/somePath";
-
+            string expectedPath = _fixture.Create<string>();
+            _categoryRulesLocationProvider
+                .Setup(x => x.GetCategoryRulesLocation())
+                .Returns(expectedPath);
             string json = _testdataBuilder.AddTaxRule()
                                          .Build();
             var stringReader = new StringReader(json);
@@ -43,7 +51,7 @@ namespace BankReader.Data.UnitTests.Json
                 .Returns(stringReader);
 
             // Act
-            var result = _jsonReader.ReadRules(expectedPath);
+            var result = _sut.ProvideRules();
 
             // Assert
             result.Should().HaveCount(1);
@@ -58,7 +66,10 @@ namespace BankReader.Data.UnitTests.Json
         public void ReadRules_WithInvalidJSON_ThrowsException()
         {
             // Arrange
-            string expectedPath = "D:/somePath";
+            string expectedPath = _fixture.Create<string>();
+            _categoryRulesLocationProvider
+                .Setup(x => x.GetCategoryRulesLocation())
+                .Returns(expectedPath);
 
             string json = "invalidJSON";
             var stringReader = new StringReader(json);
@@ -68,7 +79,7 @@ namespace BankReader.Data.UnitTests.Json
                 .Returns(stringReader);
 
             // Act
-            Action action = () => _jsonReader.ReadRules(expectedPath);
+            Action action = () => _sut.ProvideRules();
 
             // Assert
             action.Should().Throw<Exception>();

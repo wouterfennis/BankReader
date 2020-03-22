@@ -17,11 +17,11 @@ namespace BankReader.Implementation.Services
 
         void PlaceBanktransactionsUnderHousholdPosts(IEnumerable<CategoryRule> categoryRules, IEnumerable<Banktransaction> transactions)
         {
-            foreach (var transaction in transactions)
-            {
-                var category = _categoryService.DetermineCategory(transaction);
-            }
-            _categoryService.DetermineCategory()
+            //foreach (var transaction in transactions)
+            //{
+            //    var category = _categoryService.DetermineCategory(transaction);
+            //}
+            //_categoryService.DetermineCategory();
         }
     }
 }

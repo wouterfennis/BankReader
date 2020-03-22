@@ -1,4 +1,4 @@
-﻿namespace BankReader.Implementation.Providers
+﻿namespace BankReader.Data.Providers
 {
     public interface ITransactionsLocationProvider
     {

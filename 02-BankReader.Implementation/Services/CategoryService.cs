@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BankReader.Data.Csv;
 using BankReader.Data.Csv.Models;
+using BankReader.Data.Json;
 using BankReader.Data.Models;
 using BankReader.Implementation.Models;
 
@@ -8,15 +10,20 @@ namespace BankReader.Implementation.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryRuleProvider categoryRuleProvider;
+        private readonly ICategoryRuleProvider _categoryRuleProvider;
+        private readonly ITransactionProvider _transactionProvider;
 
-        public CategoryService(ICategoryRuleProvider categoryRuleProvider)
+        public CategoryService(ICategoryRuleProvider categoryRuleProvider, ITransactionProvider transactionProvider)
         {
-            this.categoryRuleProvider = categoryRuleProvider;
+            _categoryRuleProvider = categoryRuleProvider;
+            _transactionProvider = transactionProvider;
         }
 
-        public IEnumerable<HouseholdPost> Categorise(IEnumerable<CategoryRule> categoryRules, IEnumerable<Banktransaction> transactions)
+        public IEnumerable<HouseholdPost> Categorise()
         {
+            var transactions = _transactionProvider.ProvideTransactions();
+            var categoryRules = _categoryRuleProvider.ProvideRules();
+
             var householdPosts = new List<HouseholdPost>();
 
             foreach (Banktransaction transaction in transactions)

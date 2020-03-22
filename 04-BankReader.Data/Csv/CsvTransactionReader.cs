@@ -8,7 +8,7 @@ using CsvHelper;
 
 namespace BankReader.Data.Csv
 {
-    public class CsvTransactionReader : ICsvTransactionReader
+    public class CsvTransactionReader : ITransactionProvider
     {
         private readonly ITransactionsLocationProvider _transactionsLocationProvider;
         private readonly ITextStreamFactory _textStreamFactory;
@@ -19,7 +19,7 @@ namespace BankReader.Data.Csv
             _textStreamFactory = textStreamFactory;
         }
 
-        public IList<Banktransaction> ReadTransactions()
+        public IList<Banktransaction> ProvideTransactions()
         {
             var filePath = _transactionsLocationProvider.GetTransactionsLocation();
             using (var reader = _textStreamFactory.Create(filePath))

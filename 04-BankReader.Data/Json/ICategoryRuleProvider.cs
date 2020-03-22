@@ -3,8 +3,8 @@ using BankReader.Data.Models;
 
 namespace BankReader.Data.Json
 {
-    public interface IJsonRuleReader
+    public interface ICategoryRuleProvider
     {
-        IList<CategoryRule> ReadRules();
+        IList<CategoryRule> ProvideRules();
     }
 }

@@ -7,18 +7,18 @@ using Newtonsoft.Json;
 
 namespace BankReader.Data.Json
 {
-    public class JsonRuleReader : IJsonRuleReader
+    public class JsonCategoryRuleProvider : ICategoryRuleProvider
     {
         private readonly ICategoryRulesLocationProvider _categoryRulesLocationProvider;
         private readonly ITextStreamFactory _textStreamFactory;
 
-        public JsonRuleReader(ICategoryRulesLocationProvider categoryRulesLocationProvider, ITextStreamFactory textStreamFactory)
+        public JsonCategoryRuleProvider(ICategoryRulesLocationProvider categoryRulesLocationProvider, ITextStreamFactory textStreamFactory)
         {
             _categoryRulesLocationProvider = categoryRulesLocationProvider;
             _textStreamFactory = textStreamFactory;
         }
 
-        public IList<CategoryRule> ReadRules()
+        public IList<CategoryRule> ProvideRules()
         {
             var path = _categoryRulesLocationProvider.GetCategoryRulesLocation();
             using (TextReader textReader = _textStreamFactory.Create(path))

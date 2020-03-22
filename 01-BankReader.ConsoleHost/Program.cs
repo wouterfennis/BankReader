@@ -31,8 +31,8 @@ namespace BankReader.ConsoleHost
             // Input/Output
             builder.RegisterType<FileWrapper>().As<IFileWrapper>();
             builder.RegisterType<TextStreamFactory>().As<ITextStreamFactory>();
-            builder.RegisterType<CsvTransactionReader>().As<ICsvTransactionReader>();
-            builder.RegisterType<JsonRuleReader>().As<IJsonRuleReader>();
+            builder.RegisterType<CsvTransactionReader>().As<ITransactionProvider>();
+            builder.RegisterType<JsonCategoryRuleProvider>().As<ICategoryRuleProvider>();
 
             string transactionsLocation = arguments.ElementAt(0);
             string categoryRulesLocation = arguments.ElementAt(1);
