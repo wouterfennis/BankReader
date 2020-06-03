@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using BankReader.Data.Csv.Models;
-using BankReader.Models;
+﻿using BankReader.Data.Csv.Models;
+using System.Linq;
 
 namespace BankReader.Data.Models
 {

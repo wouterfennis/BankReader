@@ -38,7 +38,7 @@ namespace BankReader.Data.UnitTests.Csv
             _transactionsLocationProvider.Setup(x => x.GetTransactionsLocation())
                 .Returns(expectedPath);
             var transaction = _fixture.Create<CsvTransaction>();
-            var csv = getCsvHeader() + transaction;
+            var csv = GetCsvHeader() + transaction;
 
             var textStreamMock = new StringReader(csv);
             _textStreamFactoryMock
@@ -54,7 +54,7 @@ namespace BankReader.Data.UnitTests.Csv
             actualTransaction.Date.Date.Should().Be(transaction.Date.Date);
         }
 
-        private string getCsvHeader()
+        private string GetCsvHeader()
         {
             return
                 "\"Datum\",\"Naam / Omschrijving\",\"Rekening\"," +

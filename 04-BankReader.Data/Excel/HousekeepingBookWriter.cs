@@ -1,5 +1,4 @@
-﻿using BankReader.Data.Excel.Extensions;
-using BankReader.Implementation.Models;
+﻿using BankReader.Implementation.Models;
 using BankReader.Models;
 using OfficeOpenXml;
 using System;
@@ -11,7 +10,7 @@ namespace BankReader.Data.Excel
 {
     public class HousekeepingBookWriter : IHousekeepingBookWriter
     {
-        private string[] _headerColumns = {
+        private readonly string[] _headerColumns = {
             "Categorie",
             "Januari",
             "Februari",
@@ -111,7 +110,6 @@ namespace BankReader.Data.Excel
 
             for (int i = 2; i < 14; i++)
             {
-                //TODO: remove, below is needed to convert value to euro
                 worksheetWriter.CurrentPosition = new System.Drawing.Point(i, worksheetWriter.CurrentPosition.Y);
                 worksheetWriter
                     .SetColor(System.Drawing.Color.LightYellow)

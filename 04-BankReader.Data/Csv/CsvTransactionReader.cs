@@ -23,12 +23,11 @@ namespace BankReader.Data.Csv
         {
             var filePath = _transactionsLocationProvider.GetTransactionsLocation();
             using (var reader = _textStreamFactory.Create(filePath))
-            using (var csv = new CsvReader(reader))
+            using (var csv = new CsvReader(reader, CultureInfo.GetCultureInfo("nl-NL")))
             {
                 csv.Configuration.HasHeaderRecord = true;
                 csv.Configuration.RegisterClassMap<TransactionMapping>();
                 csv.Configuration.Delimiter = ",";
-                csv.Configuration.CultureInfo = CultureInfo.GetCultureInfo("nl-NL");
                 return csv.GetRecords<Banktransaction>().ToList();
             }
         }

@@ -1,8 +1,7 @@
-﻿using BankReader.Data.Excel;
-using BankReader.Implementation.Services;
-using BankReader.Data.Csv;
+﻿using BankReader.Data.Csv;
+using BankReader.Data.Excel;
 using BankReader.Data.Json;
-using Autofac;
+using BankReader.Implementation.Services;
 
 namespace BankReader.ConsoleHost
 {
@@ -12,19 +11,16 @@ namespace BankReader.ConsoleHost
         private readonly ICategoryRuleProvider _ruleProvider;
         private readonly ICategoryService _categoryService;
         private readonly IHousekeepingBookWriter _housekeepingBookWriter;
-        private readonly IContainer container;
 
-        public Application(ITransactionProvider transactionProvider, 
+        public Application(ITransactionProvider transactionProvider,
             ICategoryRuleProvider ruleProvider,
             ICategoryService categoryService,
-            IHousekeepingBookWriter housekeepingBookWriter,
-            IContainer container)
+            IHousekeepingBookWriter housekeepingBookWriter)
         {
             _transactionProvider = transactionProvider;
             _ruleProvider = ruleProvider;
             _categoryService = categoryService;
             _housekeepingBookWriter = housekeepingBookWriter;
-            this.container = container;
         }
 
         public void Run()

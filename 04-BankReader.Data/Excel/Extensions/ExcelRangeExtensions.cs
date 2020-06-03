@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OfficeOpenXml;
 using System.Drawing;
-using System.Text;
-using OfficeOpenXml;
 
 namespace BankReader.Data.Excel.Extensions
 {

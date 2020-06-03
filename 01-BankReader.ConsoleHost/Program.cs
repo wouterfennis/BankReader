@@ -4,8 +4,8 @@ using Autofac;
 using BankReader.Data.Csv;
 using BankReader.Data.Excel;
 using BankReader.Data.Json;
+using BankReader.Data.Providers;
 using BankReader.Data.Utilities;
-using BankReader.Implementation.Providers;
 using BankReader.Implementation.Services;
 using BankReader.Implementation.Wrappers;
 

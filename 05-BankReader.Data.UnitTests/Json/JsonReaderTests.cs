@@ -1,16 +1,15 @@
-﻿using BankReader.Data.Json;
+﻿using AutoFixture;
+using BankReader.Data.Json;
+using BankReader.Data.Models;
+using BankReader.Data.Providers;
 using BankReader.Data.UnitTests.TestdataBuilders;
 using BankReader.Data.Utilities;
-using BankReader.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.IO;
 using System.Linq;
-using BankReader.Data.Models;
-using AutoFixture;
-using BankReader.Data.Providers;
 
 namespace BankReader.Data.UnitTests.Json
 {

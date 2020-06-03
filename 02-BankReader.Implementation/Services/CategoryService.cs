@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BankReader.Data.Csv;
 using BankReader.Data.Csv.Models;
 using BankReader.Data.Json;
 using BankReader.Data.Models;
+using BankReader.Implementation.Extensions;
 using BankReader.Implementation.Models;
 
 namespace BankReader.Implementation.Services
@@ -26,7 +28,7 @@ namespace BankReader.Implementation.Services
 
             var householdPosts = new List<HouseholdPost>();
 
-            foreach (Banktransaction transaction in transactions)
+            foreach (Banktransaction transaction in transactions.ToList())
             {
                 foreach (var categoryRule in categoryRules)
                 {
@@ -50,9 +52,15 @@ namespace BankReader.Implementation.Services
                         {
                             householdTransaction.RaiseAmount(transaction.Amount);
                         }
+                        transactions.Remove(transaction);
                     }
                 }
             }
+
+            var unknownTransactions = transactions.Select(x => new HouseholdTransaction(x.Amount, x.Date, x.TransactionDirection));
+            var unknownHouseholdPost = new HouseholdPost(Category.Unknown);
+            unknownHouseholdPost.Transactions.AddRange(unknownTransactions);
+            householdPosts.Add(unknownHouseholdPost);
             return householdPosts;
         }
     }

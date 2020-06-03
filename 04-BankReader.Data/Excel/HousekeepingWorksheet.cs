@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BankReader.Data.Excel
+﻿namespace BankReader.Data.Excel
 {
     public class HousekeepingWorksheet
     {

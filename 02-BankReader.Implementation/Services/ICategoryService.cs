@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using BankReader.Data.Csv.Models;
-using BankReader.Data.Models;
-using BankReader.Implementation.Models;
+﻿using BankReader.Implementation.Models;
+using System.Collections.Generic;
 
 namespace BankReader.Implementation.Services
 {

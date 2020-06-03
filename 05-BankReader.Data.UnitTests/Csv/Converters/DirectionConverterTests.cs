@@ -1,4 +1,3 @@
-using AutoFixture;
 using BankReader.Data.Csv.Converters;
 using BankReader.Models;
 using CsvHelper;

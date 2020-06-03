@@ -1,8 +1,6 @@
 ﻿using BankReader.Data.Csv.Models;
 using BankReader.Data.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BankReader.Implementation.Services
 {
