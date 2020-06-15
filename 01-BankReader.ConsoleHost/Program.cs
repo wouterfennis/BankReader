@@ -25,8 +25,10 @@ namespace BankReader.ConsoleHost
             builder.RegisterType<Application>();
 
             // Business logic
-            builder.RegisterType<CategoryService>().As<ICategoryService>();
+            builder.RegisterType<HouseholdService>().As<IHouseholdService>();
             builder.RegisterType<HousekeepingBookWriter>().As<IHousekeepingBookWriter>();
+            builder.RegisterType<TransactionCategorizer>().As<ITransactionCategorizer>();
+
 
             // Input/Output
             builder.RegisterType<FileWrapper>().As<IFileWrapper>();

@@ -1,18 +1,15 @@
-﻿using System;
-using BankReader.Models;
-
-namespace BankReader.Implementation.Models
+﻿namespace BankReader.Data.Models
 {
     public class HouseholdTransaction
     {
         public decimal Amount { get; private set; }
-        public DateTime Date { get; }
+        internal YearMonth YearMonth { get; }
         public TransactionDirection TransactionDirection { get; }
 
-        public HouseholdTransaction(decimal amount, DateTime date, TransactionDirection transactionDirection)
+        public HouseholdTransaction(decimal amount, YearMonth yearMonth, TransactionDirection transactionDirection)
         {
             Amount = amount;
-            Date = date;
+            YearMonth = yearMonth;
             TransactionDirection = transactionDirection;
         }
 

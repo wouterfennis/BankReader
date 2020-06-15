@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BankReader.Implementation.Models
+namespace BankReader.Data.Models
 {
-    internal sealed class YearMonth : ValueObject
+    public sealed class YearMonth : ValueObject
     {
-        private const int MinimalMonth = 1;
-        private const int MaximalMonth = 12;
-
         public YearMonth(int year, int month)
         {
             Year = year;
@@ -26,9 +23,9 @@ namespace BankReader.Implementation.Models
         public Month Month { get; }
 
         /// <summary>
-        /// Creates a YearMonth from integers
+        /// Creates a YearMonth from a DateTime
         /// </summary>
-        public static YearMonth FromInt32(int year, int month) => new YearMonth(year, month);
+        public static YearMonth FromDateTime(DateTime date) => new YearMonth(date.Year, date.Month + 1);
 
         protected override IEnumerable<object> GetEqualityComponents() => new object[] { Year, Month };
     }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace BankReader.Implementation.Models
+namespace BankReader.Data.Models
 {
     /// <summary>
     /// Use non-generic ValueObject whenever possible: http://bit.ly/vo-new

@@ -1,4 +1,5 @@
-﻿using BankReader.Implementation.Models;
+﻿using BankReader.Data.Models;
+using BankReader.Implementation.Models;
 using BankReader.Models;
 using OfficeOpenXml;
 using System;
@@ -30,7 +31,7 @@ namespace BankReader.Data.Excel
 
         public void Write(IEnumerable<HouseholdPost> houseHoldPosts)
         {
-            IEnumerable<HouseholdPost> expenses = houseHoldPosts.Where(t => t.Transactions.All(x => x.TransactionDirection == TransactionDirection.Af));
+            IEnumerable<HouseholdPost> expenses = houseHoldPosts.Select(post => post.GetExpenses.Transactions.All(x => x.TransactionDirection == TransactionDirection.Af));
             IEnumerable<HouseholdPost> income = houseHoldPosts.Where(t => t.Transactions.All(x => x.TransactionDirection == TransactionDirection.Bij));
 
             //Creates a blank workbook. Use the using statement, so the package is disposed when we are done.
@@ -56,7 +57,7 @@ namespace BankReader.Data.Excel
                 worksheetWriter
                     .NewLine()
                     .SetColor(System.Drawing.Color.White);
-                PrintTransacties(expenses, worksheetWriter);
+                PrintTransactions(expenses, worksheetWriter);
 
                 worksheetWriter.NewLine()
                     .NewLine();
@@ -77,20 +78,20 @@ namespace BankReader.Data.Excel
                 worksheetWriter
                     .NewLine()
                     .SetColor(System.Drawing.Color.White);
-                PrintTransacties(income, worksheetWriter);
+                PrintTransactions(income, worksheetWriter);
 
                 excelPackage.SaveAs(new FileInfo(@"C:\Git\BankReader\test.xlsx"));
             }
         }
 
-        private void PrintTransacties(IEnumerable<HouseholdPost> householdPosts, IWorksheetWriter worksheetWriter)
+        private void PrintTransactions(IEnumerable<HouseholdPost> householdPosts, IWorksheetWriter worksheetWriter)
         {
             int topIndex = worksheetWriter.CurrentPosition.Y;
             foreach (var householdPost in householdPosts)
             {
                 worksheetWriter.Write(householdPost.Category.ToString());
 
-                foreach (var householdTransaction in householdPost.Transactions)
+                foreach (var householdTransaction in householdPost._transactions)
                 {
                     var maandXIndex = BepaalMaandIndex(householdTransaction.Date);
                     worksheetWriter.CurrentPosition = new System.Drawing.Point(maandXIndex, worksheetWriter.CurrentPosition.Y);
