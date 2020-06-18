@@ -1,10 +1,10 @@
-﻿using BankReader.Implementation.Models;
+﻿using BankReader.Data.Models;
 using System.Collections.Generic;
 
 namespace BankReader.Data.Excel
 {
     public interface IHousekeepingBookWriter
     {
-        void Write(IEnumerable<HouseholdPost> houseHoldPosts);
+        void Write(HouseholdBook householdBook);
     }
 }
