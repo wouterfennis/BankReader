@@ -8,7 +8,8 @@ namespace BankReader.Data.Excel
     public class ExcelWorksheetWriter : IWorksheetWriter
     {
         private readonly ExcelWorksheet _excelWorksheet;
-        private Color _currentColor;
+        private Color _currentBackgroundColor;
+        private Color _currentFontColor;
         private readonly int DefaultXPosition = 1;
         private readonly int DefaultYPosition = 1;
 
@@ -20,7 +21,7 @@ namespace BankReader.Data.Excel
         {
             _excelWorksheet = excelWorksheet;
             CurrentPosition = new Point(DefaultXPosition, DefaultYPosition);
-            _currentColor = Color.White;
+            _currentBackgroundColor = Color.White;
         }
 
         public IWorksheetWriter MoveDown()
@@ -47,23 +48,30 @@ namespace BankReader.Data.Excel
             return this;
         }
 
-        public IWorksheetWriter SetColor(Color color)
+        public IWorksheetWriter SetBackgroundColor(Color color)
         {
-            _currentColor = color;
+            _currentBackgroundColor = color;
+            return this;
+        }
+
+        public IWorksheetWriter SetFontColor(Color color)
+        {
+            _currentFontColor = color;
             return this;
         }
 
         public IWorksheetWriter Write(decimal value)
         {
             CurrentCell.ConvertToEuro();
-            CurrentCell.SetBackgroundColor(_currentColor);
+            CurrentCell.SetBackgroundColor(_currentBackgroundColor);
+            CurrentCell.SetFontColor(_currentFontColor);
             CurrentCell.Value = value;
             return this;
         }
 
         public IWorksheetWriter Write(string value)
         {
-            CurrentCell.SetBackgroundColor(_currentColor);
+            CurrentCell.SetBackgroundColor(_currentBackgroundColor);
             CurrentCell.Value = value;
             return this;
         }

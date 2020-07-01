@@ -14,7 +14,8 @@ namespace BankReader.Implementation.Services
 
         public Category DetermineCategory(string description)
         {
-            foreach (var categoryRule in _categoryRuleProvider.ProvideRules())
+            var rules = _categoryRuleProvider.ProvideRules();
+            foreach (var categoryRule in rules)
             {
                 if (categoryRule.Validate(description))
                 {

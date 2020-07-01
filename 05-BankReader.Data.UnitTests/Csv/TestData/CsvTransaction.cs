@@ -1,5 +1,5 @@
-﻿using System;
-using BankReader.Models;
+﻿using BankReader.Data.Models;
+using System;
 
 namespace BankReader.Data.UnitTests.Csv.TestData
 {

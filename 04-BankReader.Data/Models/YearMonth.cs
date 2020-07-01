@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BankReader.Data.Models
 {
@@ -25,7 +24,7 @@ namespace BankReader.Data.Models
         /// <summary>
         /// Creates a YearMonth from a DateTime
         /// </summary>
-        public static YearMonth FromDateTime(DateTime date) => new YearMonth(date.Year, date.Month + 1);
+        public static YearMonth FromDateTime(DateTime date) => new YearMonth(date.Year, date.Month);
 
         protected override IEnumerable<object> GetEqualityComponents() => new object[] { Year, Month };
     }

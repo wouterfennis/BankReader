@@ -11,6 +11,11 @@ namespace BankReader.Data.Excel.Extensions
             excelRange.Style.Fill.BackgroundColor.SetColor(color);
         }
 
+        public static void SetFontColor(this ExcelRange excelRange, Color color)
+        {
+            excelRange.Style.Font.Color.SetColor(color);
+        }
+
         public static void ConvertToEuro(this ExcelRange excelRange)
         {
             excelRange.Style.Numberformat.Format = "€#,##0.00";

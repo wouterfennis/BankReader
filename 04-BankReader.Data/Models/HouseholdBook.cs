@@ -5,7 +5,7 @@ namespace BankReader.Data.Models
 {
     public class HouseholdBook
     {
-        private List<HouseholdPost> householdPosts;
+        private readonly List<HouseholdPost> householdPosts;
         public HouseholdBook()
         {
             householdPosts = new List<HouseholdPost>();

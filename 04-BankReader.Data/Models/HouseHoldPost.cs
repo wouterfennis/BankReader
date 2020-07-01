@@ -1,5 +1,4 @@
-﻿using BankReader.Data.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace BankReader.Data.Models
@@ -21,7 +20,8 @@ namespace BankReader.Data.Models
             if (transaction == null)
             {
                 _transactions.Add(householdTransaction);
-            } else
+            }
+            else
             {
                 transaction.RaiseAmount(householdTransaction.Amount);
             }
@@ -30,22 +30,24 @@ namespace BankReader.Data.Models
         private HouseholdTransaction SearchHouseholdTransaction(YearMonth yearMonth, TransactionDirection transactionDirection)
         {
             return _transactions
-                .SingleOrDefault(transaction => transaction.YearMonth == yearMonth && 
+                .SingleOrDefault(transaction => transaction.YearMonth == yearMonth &&
                 transaction.TransactionDirection == transactionDirection);
         }
 
-        public IReadOnlyList<HouseholdTransaction> GetExpenses(YearMonth yearMonth)
+        public decimal GetExpenses(YearMonth yearMonth)
         {
             return _transactions
+                .Where(transaction => transaction.YearMonth == yearMonth)
                 .Where(transaction => transaction.TransactionDirection == TransactionDirection.Af)
-                .ToList();
+                .Sum(x => x.Amount);
         }
 
-        public IReadOnlyList<HouseholdTransaction> GetIncome(YearMonth yearMonth)
+        public decimal GetIncome(YearMonth yearMonth)
         {
             return _transactions
+                .Where(transaction => transaction.YearMonth == yearMonth)
                 .Where(transaction => transaction.TransactionDirection == TransactionDirection.Bij)
-                .ToList();
+                .Sum(x => x.Amount);
         }
 
     }
