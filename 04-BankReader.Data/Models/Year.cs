@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BankReader.Implementation.Models
+namespace BankReader.Data.Models
 {
     /// <summary>
     /// Value Object of a Year
     /// </summary>
-    internal sealed class Year : ValueObject
+    public sealed class Year : ValueObject
     {
         private const int MinimalYear = 2000;
         private const int MaximalYear = 2100;

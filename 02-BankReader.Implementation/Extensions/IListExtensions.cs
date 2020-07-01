@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BankReader.Implementation.Extensions
 {
@@ -16,7 +15,8 @@ namespace BankReader.Implementation.Extensions
         /// <param name="newItems">The items that should be added to the list</param>
         public static void AddRange<T>(this IList<T> list, IEnumerable<T> newItems)
         {
-            if (list == null) {
+            if (list == null)
+            {
                 throw new ArgumentNullException(nameof(list));
             }
             if (newItems == null)

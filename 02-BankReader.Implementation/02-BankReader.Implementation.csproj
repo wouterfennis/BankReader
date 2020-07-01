@@ -15,12 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-      <_Parameter1>BankReader.Implementation.UnitTests</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\04-BankReader.Data\04-BankReader.Data.csproj" />
   </ItemGroup>
 

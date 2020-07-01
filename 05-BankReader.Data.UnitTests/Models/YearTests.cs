@@ -1,12 +1,10 @@
 ﻿using AutoFixture;
-using BankReader.Implementation.Models;
+using BankReader.Data.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace BankReader.Implementation.UnitTests.Models
+namespace BankReader.Data.UnitTests.Models
 {
     [TestClass]
     public class YearTests

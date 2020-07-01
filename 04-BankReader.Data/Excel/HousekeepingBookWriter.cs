@@ -1,5 +1,4 @@
-﻿using BankReader.Implementation.Models;
-using BankReader.Models;
+﻿using BankReader.Data.Models;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -11,29 +10,33 @@ namespace BankReader.Data.Excel
     public class HousekeepingBookWriter : IHousekeepingBookWriter
     {
         private readonly string[] _headerColumns = {
-            "Categorie",
-            "Januari",
-            "Februari",
-            "Maart",
+            "Category",
+            "January",
+            "February",
+            "March",
             "April",
-            "Mei",
-            "Juni",
-            "Juli",
-            "Augustus",
+            "May",
+            "June",
+            "July",
+            "August",
             "September",
-            "Oktober",
+            "October",
             "November",
             "December",
-            "Totaal per jaar",
-            "Gemiddeld per maand"
+            "Total a year",
+            "Average a month"
         };
 
-        public void Write(IEnumerable<HouseholdPost> houseHoldPosts)
-        {
-            IEnumerable<HouseholdPost> expenses = houseHoldPosts.Where(t => t.Transactions.All(x => x.TransactionDirection == TransactionDirection.Af));
-            IEnumerable<HouseholdPost> income = houseHoldPosts.Where(t => t.Transactions.All(x => x.TransactionDirection == TransactionDirection.Bij));
+        private readonly IReadOnlyList<YearMonth> monthsOfYear;
 
-            //Creates a blank workbook. Use the using statement, so the package is disposed when we are done.
+        public HousekeepingBookWriter()
+        {
+            monthsOfYear = Enumerable.Range(1, 12).Select(i => new YearMonth(DateTime.Now.Year, i)).ToList();
+
+        }
+
+        public void Write(HouseholdBook householdBook)
+        {
             using (var excelPackage = new ExcelPackage())
             {
                 ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Huishoudboek");
@@ -41,85 +44,73 @@ namespace BankReader.Data.Excel
                 var worksheetWriter = new ExcelWorksheetWriter(worksheet);
 
                 worksheetWriter
-                    .SetColor(System.Drawing.Color.Red)
-                    .Write("Uitgaven")
+                    .SetBackgroundColor(System.Drawing.Color.DimGray)
+                    .Write("Householdposts")
                     .MoveDown();
 
                 foreach (string headerColumn in _headerColumns)
                 {
                     worksheetWriter
-                        .SetColor(System.Drawing.Color.WhiteSmoke)
+                        .SetBackgroundColor(System.Drawing.Color.WhiteSmoke)
                         .Write(headerColumn)
                         .MoveRight();
                 }
 
                 worksheetWriter
-                    .NewLine()
-                    .SetColor(System.Drawing.Color.White);
-                PrintTransacties(expenses, worksheetWriter);
-
-                worksheetWriter.NewLine()
                     .NewLine();
 
-                worksheetWriter
-                    .SetColor(System.Drawing.Color.Green)
-                    .Write("Inkomsten")
-                    .MoveDown();
-
-                foreach (string headerColumn in _headerColumns)
+                foreach (var householdPost in householdBook.HouseholdPosts)
                 {
-                    worksheetWriter
-                        .SetColor(System.Drawing.Color.WhiteSmoke)
-                        .Write(headerColumn)
-                        .MoveRight();
+                    PrintHouseholdPost(householdPost, worksheetWriter);
                 }
-
-                worksheetWriter
-                    .NewLine()
-                    .SetColor(System.Drawing.Color.White);
-                PrintTransacties(income, worksheetWriter);
 
                 excelPackage.SaveAs(new FileInfo(@"C:\Git\BankReader\test.xlsx"));
             }
         }
 
-        private void PrintTransacties(IEnumerable<HouseholdPost> householdPosts, IWorksheetWriter worksheetWriter)
+        private void PrintHouseholdPost(HouseholdPost householdPost, IWorksheetWriter worksheetWriter)
         {
             int topIndex = worksheetWriter.CurrentPosition.Y;
-            foreach (var householdPost in householdPosts)
+            worksheetWriter
+                .SetBackgroundColor(System.Drawing.Color.LightYellow)
+                .Write(householdPost.Category.ToString())
+                .MoveRight();
+
+            var year = DateTime.Now.Year;
+            for (int monthNumber = 1; monthNumber < 13; monthNumber++)
             {
-                worksheetWriter.Write(householdPost.Category.ToString());
+                var yearMonth = new YearMonth(year, monthNumber);
+                var incomeInMonth = householdPost.GetIncome(yearMonth);
+                var expensesInMonth = householdPost.GetExpenses(yearMonth);
 
-                foreach (var householdTransaction in householdPost.Transactions)
-                {
-                    var maandXIndex = BepaalMaandIndex(householdTransaction.Date);
-                    worksheetWriter.CurrentPosition = new System.Drawing.Point(maandXIndex, worksheetWriter.CurrentPosition.Y);
-                    worksheetWriter.Write(householdTransaction.Amount);
-                }
-                worksheetWriter.CurrentPosition = new System.Drawing.Point(14, worksheetWriter.CurrentPosition.Y);
-                worksheetWriter.SetColor(System.Drawing.Color.LightYellow)
-                .PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), FormulaType.SUM)
-                .MoveRight()
-                .PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(13, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE)
-                .SetColor(System.Drawing.Color.White)
-                .NewLine();
-            }
-
-            worksheetWriter.CurrentPosition = new System.Drawing.Point(1, worksheetWriter.CurrentPosition.Y);
-            worksheetWriter.Write("Totaal per maand");
-
-            for (int i = 2; i < 14; i++)
-            {
-                worksheetWriter.CurrentPosition = new System.Drawing.Point(i, worksheetWriter.CurrentPosition.Y);
                 worksheetWriter
-                    .SetColor(System.Drawing.Color.LightYellow)
-                    .PlaceFormula(new System.Drawing.Point(i, topIndex), new System.Drawing.Point(i, worksheetWriter.CurrentPosition.Y - 1), FormulaType.SUM);
+                    .SetBackgroundColor(System.Drawing.Color.Salmon)
+                    .SetFontColor(System.Drawing.Color.Black)
+                    .Write(-1 * expensesInMonth)
+                    .MoveDown()
+                    .SetBackgroundColor(System.Drawing.Color.LightGreen)
+                    .Write(incomeInMonth)
+                    .MoveDown()
+                    .SetBackgroundColor(System.Drawing.Color.Gainsboro)
+                    .SetFontColor(System.Drawing.Color.Black)
+                    .PlaceFormula(new System.Drawing.Point(worksheetWriter.CurrentPosition.X, topIndex), new System.Drawing.Point(worksheetWriter.CurrentPosition.X, worksheetWriter.CurrentPosition.Y -1), FormulaType.SUM)
+                    .MoveRight()
+                    .MoveUp()
+                    .MoveUp();
             }
-        }
 
-        private int BepaalMaandIndex(DateTime datum)
-        {
-            return datum.Month + 1;
+            worksheetWriter
+                .PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(worksheetWriter.CurrentPosition.X - 1, worksheetWriter.CurrentPosition.Y), FormulaType.SUM)
+                .MoveRight()
+                .PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(worksheetWriter.CurrentPosition.X - 2, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE)
+                .MoveDown()
+                .MoveLeft()
+                .PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(worksheetWriter.CurrentPosition.X - 1, worksheetWriter.CurrentPosition.Y), FormulaType.SUM)
+                .MoveRight()
+                .PlaceFormula(new System.Drawing.Point(2, worksheetWriter.CurrentPosition.Y), new System.Drawing.Point(worksheetWriter.CurrentPosition.X - 2, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE)
+                .NewLine()
+                .NewLine()
+                .NewLine();
         }
     }
 }

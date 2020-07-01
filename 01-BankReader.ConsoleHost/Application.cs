@@ -9,25 +9,25 @@ namespace BankReader.ConsoleHost
     {
         private readonly ITransactionProvider _transactionProvider;
         private readonly ICategoryRuleProvider _ruleProvider;
-        private readonly ICategoryService _categoryService;
+        private readonly IHouseholdService _householdService;
         private readonly IHousekeepingBookWriter _housekeepingBookWriter;
 
         public Application(ITransactionProvider transactionProvider,
             ICategoryRuleProvider ruleProvider,
-            ICategoryService categoryService,
+            IHouseholdService householdService,
             IHousekeepingBookWriter housekeepingBookWriter)
         {
             _transactionProvider = transactionProvider;
             _ruleProvider = ruleProvider;
-            _categoryService = categoryService;
+            _householdService = householdService;
             _housekeepingBookWriter = housekeepingBookWriter;
         }
 
         public void Run()
         {
-            var houseHoldPosts = _categoryService.Categorise();
+            var householdBook = _householdService.CreateHouseholdBook();
 
-            _housekeepingBookWriter.Write(houseHoldPosts);
+            _housekeepingBookWriter.Write(householdBook);
         }
     }
 }

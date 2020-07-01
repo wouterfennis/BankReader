@@ -16,7 +16,9 @@ namespace BankReader.Data.Excel
 
         IWorksheetWriter NewLine();
 
-        IWorksheetWriter SetColor(Color color);
+        IWorksheetWriter SetBackgroundColor(Color color);
+
+        IWorksheetWriter SetFontColor(Color color);
 
         IWorksheetWriter Write(decimal value);
 

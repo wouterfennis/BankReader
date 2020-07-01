@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BankReader.Implementation.Models
+namespace BankReader.Data.Models
 {
     /// <summary>
     /// Value object of a Month
     /// </summary>
-    internal sealed class Month : ValueObject
+    public sealed class Month : ValueObject
     {
         private const int MinimalMonth = 1;
         private const int MaximalMonth = 12;

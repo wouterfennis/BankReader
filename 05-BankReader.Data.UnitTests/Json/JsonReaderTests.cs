@@ -56,8 +56,8 @@ namespace BankReader.Data.UnitTests.Json
             result.Should().HaveCount(1);
             var categoryRule = result.ElementAt(0);
             categoryRule.Category.Should().Be(Category.Tax);
-            categoryRule.Descriptions.Should().HaveCount(1);
-            var description = categoryRule.Descriptions.ElementAt(0);
+            categoryRule.DescriptionMatches.Should().HaveCount(1);
+            var description = categoryRule.DescriptionMatches.ElementAt(0);
             description.Should().Be("belasting");
         }
 

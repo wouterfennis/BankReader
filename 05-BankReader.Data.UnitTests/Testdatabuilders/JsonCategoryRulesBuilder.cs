@@ -18,7 +18,7 @@ namespace BankReader.Data.UnitTests.TestdataBuilders
             CategoryRules.Add(new CategoryRule
             {
                 Category = Category.Tax,
-                Descriptions = new[] { "belasting" }
+                DescriptionMatches = new[] { "belasting" }
             });
             return this;
         }

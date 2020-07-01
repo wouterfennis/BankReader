@@ -1,25 +1,38 @@
-﻿using BankReader.Data.Csv.Models;
+﻿using BankReader.Data.Csv;
+using BankReader.Data.Csv.Models;
 using BankReader.Data.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BankReader.Implementation.Services
 {
-    internal class HouseholdService
+    public class HouseholdService : IHouseholdService
     {
-        private readonly ICategoryService _categoryService;
+        private readonly ITransactionCategorizer _transactionCategorizer;
+        private readonly ITransactionProvider _transactionProvider;
 
-        public HouseholdService(ICategoryService categoryService)
+        public HouseholdService(ITransactionCategorizer transactionCategorizer, ITransactionProvider transactionProvider)
         {
-            _categoryService = categoryService;
+            _transactionCategorizer = transactionCategorizer;
+            _transactionProvider = transactionProvider;
         }
 
-        void PlaceBanktransactionsUnderHousholdPosts(IEnumerable<CategoryRule> categoryRules, IEnumerable<Banktransaction> transactions)
+        public HouseholdBook CreateHouseholdBook()
         {
-            //foreach (var transaction in transactions)
-            //{
-            //    var category = _categoryService.DetermineCategory(transaction);
-            //}
-            //_categoryService.DetermineCategory();
+            var transactions = _transactionProvider.ProvideTransactions();
+
+            var householdBook = new HouseholdBook();
+
+            foreach (Banktransaction transaction in transactions.ToList())
+            {
+                var category = _transactionCategorizer.DetermineCategory(transaction.Description);
+                var householdPost = householdBook.RetrieveHouseholdPost(category);
+                var householdTransaction = new HouseholdTransaction(transaction.Amount, YearMonth.FromDateTime(transaction.Date), transaction.TransactionDirection);
+                householdPost.AddTransaction(householdTransaction);
+                transactions.Remove(transaction);
+            }
+
+            return householdBook;
         }
     }
 }

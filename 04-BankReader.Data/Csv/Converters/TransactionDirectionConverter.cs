@@ -1,8 +1,8 @@
-﻿using System;
-using BankReader.Models;
+﻿using BankReader.Data.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
+using System;
 
 namespace BankReader.Data.Csv.Converters
 {
