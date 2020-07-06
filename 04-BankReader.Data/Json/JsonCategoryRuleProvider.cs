@@ -9,18 +9,18 @@ namespace BankReader.Data.Json
 {
     public class JsonCategoryRuleProvider : ICategoryRuleProvider
     {
-        private readonly ICategoryRulesLocationProvider _categoryRulesLocationProvider;
+        private readonly IFileLocationProvider _fileLocationProvider;
         private readonly ITextStreamFactory _textStreamFactory;
 
-        public JsonCategoryRuleProvider(ICategoryRulesLocationProvider categoryRulesLocationProvider, ITextStreamFactory textStreamFactory)
+        public JsonCategoryRuleProvider(IFileLocationProvider categoryRulesLocationProvider, ITextStreamFactory textStreamFactory)
         {
-            _categoryRulesLocationProvider = categoryRulesLocationProvider;
+            _fileLocationProvider = categoryRulesLocationProvider;
             _textStreamFactory = textStreamFactory;
         }
 
         public IList<CategoryRule> ProvideRules()
         {
-            var path = _categoryRulesLocationProvider.GetCategoryRulesLocation();
+            var path = _fileLocationProvider.GetCategoryRulesLocation();
             using (TextReader textReader = _textStreamFactory.Create(path))
             {
                 var json = textReader.ReadToEnd();

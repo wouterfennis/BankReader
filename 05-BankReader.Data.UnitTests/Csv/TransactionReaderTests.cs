@@ -18,7 +18,7 @@ namespace BankReader.Data.UnitTests.Csv
     {
         private Fixture _fixture;
         private Mock<ITextStreamFactory> _textStreamFactoryMock;
-        private Mock<ITransactionsLocationProvider> _transactionsLocationProvider;
+        private Mock<IFileLocationProvider> _fileLocationProvider;
         private CsvTransactionReader _sut;
 
         [TestInitialize]
@@ -26,19 +26,19 @@ namespace BankReader.Data.UnitTests.Csv
         {
             _fixture = new Fixture();
             _textStreamFactoryMock = new Mock<ITextStreamFactory>();
-            _transactionsLocationProvider = new Mock<ITransactionsLocationProvider>();
-            _sut = new CsvTransactionReader(_transactionsLocationProvider.Object, _textStreamFactoryMock.Object);
+            _fileLocationProvider = new Mock<IFileLocationProvider>();
+            _sut = new CsvTransactionReader(_fileLocationProvider.Object, _textStreamFactoryMock.Object);
         }
 
         [TestMethod]
         public void ProvideTransactions_WithValidCSV_ReturnsCorrectTransaction()
         {
             // Arrange
-            var expectedPath = _fixture.Create<string>();
-            _transactionsLocationProvider.Setup(x => x.GetTransactionsLocation())
+            var expectedPath = new Mock<IFileInfoWrapper>().Object;
+            _fileLocationProvider.Setup(x => x.GetTransactionsLocation())
                 .Returns(expectedPath);
             var transaction = _fixture.Create<CsvTransaction>();
-            var csv = GetCsvHeader() + transaction;
+            var csv = $"{GetCsvHeader()}\r\n{transaction}";
 
             var textStreamMock = new StringReader(csv);
             _textStreamFactoryMock
@@ -59,7 +59,7 @@ namespace BankReader.Data.UnitTests.Csv
             return
                 "\"Datum\",\"Naam / Omschrijving\",\"Rekening\"," +
                 "\"Tegenrekening\",\"Code\",\"Af Bij\"," +
-                "\"Bedrag (EUR)\",\"MutatieSoort\",\"Mededelingen\"\r\n";
+                "\"Bedrag (EUR)\",\"MutatieSoort\",\"Mededelingen\"";
         }
     }
 }

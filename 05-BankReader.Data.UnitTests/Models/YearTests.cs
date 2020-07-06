@@ -42,7 +42,7 @@ namespace BankReader.Data.UnitTests.Models
         {
             int validYear = 1999;
 
-            Action action = () => { Year year = validYear; };
+            Action action = () => { Year.FromInt32(validYear); };
 
             action.Should()
                 .Throw<ArgumentException>();
@@ -53,7 +53,7 @@ namespace BankReader.Data.UnitTests.Models
         {
             int validYear = 2101;
 
-            Action action = () => { Year year = validYear; };
+            Action action = () => { Year.FromInt32(validYear); };
 
             action.Should()
                 .Throw<ArgumentException>();

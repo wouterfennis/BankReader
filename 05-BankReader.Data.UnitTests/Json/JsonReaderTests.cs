@@ -17,7 +17,7 @@ namespace BankReader.Data.UnitTests.Json
     public class JsonReaderTests
     {
         private Mock<ITextStreamFactory> _textStreamFactoryMock;
-        private Mock<ICategoryRulesLocationProvider> _categoryRulesLocationProvider;
+        private Mock<IFileLocationProvider> _fileLocationProvider;
         private JsonCategoryRuleProvider _sut;
         private Fixture _fixture;
         private JsonCategoryRulesBuilder _testdataBuilder;
@@ -29,16 +29,16 @@ namespace BankReader.Data.UnitTests.Json
             _testdataBuilder = new JsonCategoryRulesBuilder();
 
             _textStreamFactoryMock = new Mock<ITextStreamFactory>();
-            _categoryRulesLocationProvider = new Mock<ICategoryRulesLocationProvider>();
-            _sut = new JsonCategoryRuleProvider(_categoryRulesLocationProvider.Object, _textStreamFactoryMock.Object);
+            _fileLocationProvider = new Mock<IFileLocationProvider>();
+            _sut = new JsonCategoryRuleProvider(_fileLocationProvider.Object, _textStreamFactoryMock.Object);
         }
 
         [TestMethod]
         public void ProvideRules_WithValidJSON_ReturnsRules()
         {
             // Arrange
-            string expectedPath = _fixture.Create<string>();
-            _categoryRulesLocationProvider
+            var expectedPath = new Mock<IFileInfoWrapper>().Object;
+            _fileLocationProvider
                 .Setup(x => x.GetCategoryRulesLocation())
                 .Returns(expectedPath);
             string json = _testdataBuilder.AddTaxRule()
@@ -65,8 +65,8 @@ namespace BankReader.Data.UnitTests.Json
         public void ReadRules_WithInvalidJSON_ThrowsException()
         {
             // Arrange
-            string expectedPath = _fixture.Create<string>();
-            _categoryRulesLocationProvider
+            var expectedPath = new Mock<IFileInfoWrapper>().Object;
+            _fileLocationProvider
                 .Setup(x => x.GetCategoryRulesLocation())
                 .Returns(expectedPath);
 

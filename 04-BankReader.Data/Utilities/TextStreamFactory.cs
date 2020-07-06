@@ -4,9 +4,9 @@ namespace BankReader.Data.Utilities
 {
     public class TextStreamFactory : ITextStreamFactory
     {
-        public TextReader Create(string path)
+        public TextReader Create(IFileInfoWrapper path)
         {
-            return new StreamReader(path);
+            return new StreamReader(path.OpenRead());
         }
     }
 }

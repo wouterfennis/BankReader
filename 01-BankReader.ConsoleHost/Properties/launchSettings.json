@@ -2,7 +2,7 @@
   "profiles": {
     "01-BankReader.ConsoleHost": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Git\\BankReader\\test.csv\" \"C:\\Git\\BankReader\\test.json\""
+      "commandLineArgs": "\"C:\\Git\\BankReader\\test.csv\" \"C:\\Git\\BankReader\\test.json\" \"C:\\Git\\BankReader\\test.xlsx\""
     }
   }
 }

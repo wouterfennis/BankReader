@@ -1,9 +1,11 @@
 ﻿using BankReader.Data.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace BankReader.Data.Excel
 {
-    public interface IHousekeepingBookWriter
+    public interface IHousekeepingBookWriter : IDisposable
     {
-        void Write(HouseholdBook householdBook);
+        Task WriteAsync(HouseholdBook householdBook);
     }
 }

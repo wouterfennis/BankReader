@@ -10,10 +10,10 @@ namespace BankReader.Data.Csv
 {
     public class CsvTransactionReader : ITransactionProvider
     {
-        private readonly ITransactionsLocationProvider _transactionsLocationProvider;
+        private readonly IFileLocationProvider _transactionsLocationProvider;
         private readonly ITextStreamFactory _textStreamFactory;
 
-        public CsvTransactionReader(ITransactionsLocationProvider transactionsLocationProvider, ITextStreamFactory textStreamFactory)
+        public CsvTransactionReader(IFileLocationProvider transactionsLocationProvider, ITextStreamFactory textStreamFactory)
         {
             _transactionsLocationProvider = transactionsLocationProvider;
             _textStreamFactory = textStreamFactory;

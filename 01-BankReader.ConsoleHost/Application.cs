@@ -1,24 +1,16 @@
-﻿using BankReader.Data.Csv;
-using BankReader.Data.Excel;
-using BankReader.Data.Json;
+﻿using BankReader.Data.Excel;
 using BankReader.Implementation.Services;
 
 namespace BankReader.ConsoleHost
 {
     public class Application
     {
-        private readonly ITransactionProvider _transactionProvider;
-        private readonly ICategoryRuleProvider _ruleProvider;
         private readonly IHouseholdService _householdService;
         private readonly IHousekeepingBookWriter _housekeepingBookWriter;
 
-        public Application(ITransactionProvider transactionProvider,
-            ICategoryRuleProvider ruleProvider,
-            IHouseholdService householdService,
+        public Application(IHouseholdService householdService,
             IHousekeepingBookWriter housekeepingBookWriter)
         {
-            _transactionProvider = transactionProvider;
-            _ruleProvider = ruleProvider;
             _householdService = householdService;
             _housekeepingBookWriter = housekeepingBookWriter;
         }
@@ -27,7 +19,7 @@ namespace BankReader.ConsoleHost
         {
             var householdBook = _householdService.CreateHouseholdBook();
 
-            _housekeepingBookWriter.Write(householdBook);
+            _housekeepingBookWriter.WriteAsync(householdBook);
         }
     }
 }

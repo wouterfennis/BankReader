@@ -42,7 +42,7 @@ namespace BankReader.Data.UnitTests.Models
         {
             int validMonth = 0;
 
-            Action action = () => { Month Month = validMonth; };
+            Action action = () => { Month.FromInt32(validMonth); };
 
             action.Should()
                 .Throw<ArgumentException>();
@@ -53,7 +53,7 @@ namespace BankReader.Data.UnitTests.Models
         {
             int validMonth = 13;
 
-            Action action = () => { Month Month = validMonth; };
+            Action action = () => { Month.FromInt32(validMonth); };
 
             action.Should()
                 .Throw<ArgumentException>();

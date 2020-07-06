@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Autofac;
+﻿using Autofac;
 using BankReader.Data.Csv;
 using BankReader.Data.Excel;
 using BankReader.Data.Json;
@@ -8,6 +6,8 @@ using BankReader.Data.Providers;
 using BankReader.Data.Utilities;
 using BankReader.Implementation.Services;
 using BankReader.Implementation.Wrappers;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace BankReader.ConsoleHost
 {
@@ -38,9 +38,9 @@ namespace BankReader.ConsoleHost
 
             string transactionsLocation = arguments.ElementAt(0);
             string categoryRulesLocation = arguments.ElementAt(1);
+            string workbookLocation = arguments.ElementAt(2);
 
-            builder.Register(ctx => new TransactionsLocationProvider(transactionsLocation)).As<ITransactionsLocationProvider>();
-            builder.Register(ctx => new CategoryRulesLocationProvider(categoryRulesLocation)).As<ICategoryRulesLocationProvider>();
+            builder.Register(ctx => new FileLocationProvider(categoryRulesLocation, transactionsLocation, workbookLocation)).As<IFileLocationProvider>();
 
             return builder.Build();
         }

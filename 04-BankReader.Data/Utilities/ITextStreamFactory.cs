@@ -11,6 +11,6 @@ namespace BankReader.Data.Utilities
         /// Creates a TextReader
         /// </summary>
         /// <param name="path">Path where the TextReader should read from</param>
-        TextReader Create(string path);
+        TextReader Create(IFileInfoWrapper path);
     }
 }
