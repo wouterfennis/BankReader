@@ -2,6 +2,7 @@
 using BankReader.Data.Providers;
 using BankReader.Data.Utilities;
 using OfficeOpenXml;
+using System;
 using System.Threading.Tasks;
 
 namespace BankReader.Data.Excel
@@ -18,6 +19,10 @@ namespace BankReader.Data.Excel
 
         public async Task WriteAsync(HouseholdBook householdBook)
         {
+            _excelPackage.Workbook.Properties.Author = "W. Fennis";
+            _excelPackage.Workbook.Properties.Title = "Huishoudboekje";
+            _excelPackage.Workbook.Properties.Subject = "Export";
+            _excelPackage.Workbook.Properties.Created = DateTime.Now;
             ExcelWorksheet worksheet = _excelPackage.Workbook.Worksheets.Add("Huishoudboek");
 
             var householdPostWorksheet = new HouseholdPostWorksheet(worksheet);

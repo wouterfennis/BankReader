@@ -14,7 +14,7 @@ namespace BankReader.Data.Csv.Models
             Map(m => m.Code).Name("Code");
             Map(m => m.TransactionDirection).Name("Af Bij").TypeConverter<TransactionDirectionConverter>();
             Map(m => m.Amount).Name("Bedrag (EUR)");
-            Map(m => m.MutationType).Name("MutatieSoort");
+            Map(m => m.MutationType).Name("Mutatiesoort");
             Map(m => m.Comments).Name("Mededelingen");
         }
     }

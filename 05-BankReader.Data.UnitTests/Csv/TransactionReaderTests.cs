@@ -59,7 +59,7 @@ namespace BankReader.Data.UnitTests.Csv
             return
                 "\"Datum\",\"Naam / Omschrijving\",\"Rekening\"," +
                 "\"Tegenrekening\",\"Code\",\"Af Bij\"," +
-                "\"Bedrag (EUR)\",\"MutatieSoort\",\"Mededelingen\"";
+                "\"Bedrag (EUR)\",\"Mutatiesoort\",\"Mededelingen\"";
         }
     }
 }
