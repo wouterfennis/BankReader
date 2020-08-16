@@ -350,3 +350,5 @@ MigrationBackup/
 
 # Custom ignores
 test.csv
+test.json
+test.xlsx
