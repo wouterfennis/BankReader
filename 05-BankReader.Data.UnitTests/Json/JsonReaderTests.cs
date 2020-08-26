@@ -1,9 +1,9 @@
 ﻿using AutoFixture;
 using BankReader.Data.Json;
-using BankReader.Data.Models;
 using BankReader.Data.Providers;
 using BankReader.Data.UnitTests.TestdataBuilders;
 using BankReader.Data.Utilities;
+using BankReader.Shared.Models;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

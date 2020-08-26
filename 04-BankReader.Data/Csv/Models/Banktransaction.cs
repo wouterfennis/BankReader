@@ -1,4 +1,4 @@
-﻿using BankReader.Data.Models;
+﻿using BankReader.Shared.Models;
 using System;
 
 namespace BankReader.Data.Csv.Models

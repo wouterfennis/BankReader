@@ -1,11 +1,5 @@
 ﻿using Autofac;
-using BankReader.Data.Csv;
-using BankReader.Data.Excel;
-using BankReader.Data.Json;
-using BankReader.Data.Providers;
-using BankReader.Data.Utilities;
-using BankReader.Implementation.Services;
-using BankReader.Implementation.Wrappers;
+using BankReader.ConsoleHost.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
@@ -26,9 +20,8 @@ namespace BankReader.ConsoleHost
 
             // Business logic
             builder.RegisterType<HouseholdService>().As<IHouseholdService>();
-            builder.RegisterType<HousekeepingBookWriter>().As<IHousekeepingBookWriter>();
+            builder.RegisterType<HousekeepingBookWriter>().As<IHouseholdBookWriter>();
             builder.RegisterType<TransactionCategorizer>().As<ITransactionCategorizer>();
-
 
             // Input/Output
             builder.RegisterType<FileWrapper>().As<IFileWrapper>();

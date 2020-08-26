@@ -1,5 +1,5 @@
 using BankReader.Data.Csv.Converters;
-using BankReader.Data.Models;
+using BankReader.Shared.Models;
 using CsvHelper;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

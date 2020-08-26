@@ -1,4 +1,4 @@
-﻿using BankReader.Data.Models;
+﻿using BankReader.Shared.Models;
 using BankReader.Data.Providers;
 using BankReader.Data.Utilities;
 using OfficeOpenXml;

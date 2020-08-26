@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>BankReader.Household</RootNamespace>
+    <AssemblyName>BankReader.Household</AssemblyName>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.11.0.20529">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\01-BankReader.ConsoleHost\01-BankReader.ConsoleHost.csproj" />
+    <ProjectReference Include="..\04-BankReader.Data\04-BankReader.Data.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,6 +1,110 @@
 [
   {
     "category": "Housing",
-    "descriptions": [ "Albert Heijn" ]
+    "descriptionMatches": [ "ING Bank N.V. hypotheken.incasso", "VVE ADM RUYTERLAAN" ]
+  },
+  {
+    "category": "Water",
+    "descriptionMatches": [ "Vitens NV" ]
+  },
+  {
+    "category": "Electricity",
+    "descriptionMatches": [ "OXXIO" ]
+  },
+  {
+    "category": "MobilePhone",
+    "descriptionMatches": [ "Simpel" ]
+  },
+  {
+    "category": "MusicStreaming",
+    "descriptionMatches": [ "SPOTIFY" ]
+  },
+  {
+    "category": "Groceries",
+    "descriptionMatches": [ "Albert Heijn", 
+	"Kruidvat", 
+	"Hoogvliet", 
+	"Aldi", 
+	"Action", 
+	"Lidl", 
+	"Gall & Gall", 
+	"Jumbo",
+	"Boni"	]
+  },
+  {
+    "category": "FuneralInsurance",
+    "descriptionMatches": [ "Monuta" ]
+  },
+  {
+    "category": "HealthInsurance",
+    "descriptionMatches": [ "Menzis", "CZ Groep Zorgverzekeraar" ]
+  },
+  {
+    "category": "HouseInsurance",
+    "descriptionMatches": [ "NATIONALE-NEDERLANDEN" ]
+  },
+  {
+    "category": "Bank",
+    "descriptionMatches": [ "Kosten OranjePakket", "Kosten voor gebruik" ]
+  },
+  {
+	"category": "HomeImprovement",
+	"descriptionMatches": [ "Praxis", 
+	"Intratuin", 
+	"Gamma", 
+	"Ikea", 
+	"Tegels in huis",
+	"Trappentoko",
+	"Bouwmaat"]
+  },
+  {
+	"category": "Car",
+	"descriptionMatches": [ "Wiggerts Autowasservic", "ANWB", "Shell", "Q PARK"]
+  },
+  {
+	"category": "Amusement",
+	"descriptionMatches": [ "Ijsselhallen", 
+	"Harbourclub UTRECHT", 
+	"Vue Cinemas", 
+	"Vermaat Artis ZOO",
+	"De barbier",
+	"Stichting ATC Noordwijk",
+	"Filmtheater",
+	"Beeld en Geluid"
+	]
+  },
+  {
+	"category": "Clothing",
+	"descriptionMatches": [ "C&A", "HEMA", "H & M", "WE Fashion", "De Bijenkorf"]
+  },
+  {
+	"category": "Salary",
+	"descriptionMatches": [ "Info Support B.V."]
+  },
+  {
+	"category": "Tax",
+	"descriptionMatches": [ "Gemeente Hilversum", "Waterschap Amstel, Gooi en Vecht"]
+  },
+  {
+	"category": "PublicTransit",
+	"descriptionMatches": [ "NS", "TLS BV"]
+  },
+  {
+	"category": "Restaurant",
+	"descriptionMatches": [ "Wok Amazing", 
+	"McDonalds", 
+	"Grand Cafe Rotterdam",
+	"El Mundo",
+	"Foodhall Mout",
+	"Bakkerij Lale",
+	"C&M*SAM",
+	"The Guardian",
+	"Barfood",
+	"Le Journal",
+	"Ijssalon"]
+  },
+  {
+	"category": "Purchase",
+	"descriptionMatches": [ "Treasure juweliers", "bol.com"]
   }
 ]

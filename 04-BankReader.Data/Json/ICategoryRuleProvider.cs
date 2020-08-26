@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using BankReader.Data.Models;
+﻿using BankReader.Shared.Models;
+using System.Collections.Generic;
 
 namespace BankReader.Data.Json
 {

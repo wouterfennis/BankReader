@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\02-BankReader.Implementation\02-BankReader.Implementation.csproj" />
+    <ProjectReference Include="..\04-BankReader.Data\04-BankReader.Data.csproj" />
+    <ProjectReference Include="..\07-BankReader.Shared\07-BankReader.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

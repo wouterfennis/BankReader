@@ -22,4 +22,8 @@
     </AssemblyAttribute>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\07-BankReader.Shared\07-BankReader.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

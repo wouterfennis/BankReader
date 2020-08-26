@@ -1,15 +1,14 @@
-﻿using BankReader.Data.Excel;
-using BankReader.Implementation.Services;
+﻿using BankReader.ConsoleHost.Interfaces;
 
 namespace BankReader.ConsoleHost
 {
     public class Application
     {
         private readonly IHouseholdService _householdService;
-        private readonly IHousekeepingBookWriter _housekeepingBookWriter;
+        private readonly IHouseholdBookWriter _housekeepingBookWriter;
 
         public Application(IHouseholdService householdService,
-            IHousekeepingBookWriter housekeepingBookWriter)
+            IHouseholdBookWriter housekeepingBookWriter)
         {
             _householdService = householdService;
             _housekeepingBookWriter = housekeepingBookWriter;

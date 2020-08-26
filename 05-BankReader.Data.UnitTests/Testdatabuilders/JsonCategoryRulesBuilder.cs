@@ -1,4 +1,4 @@
-﻿using BankReader.Data.Models;
+﻿using BankReader.Shared.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
