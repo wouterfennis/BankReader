@@ -3,7 +3,7 @@ using BankReader.Shared.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace BankReader.Data.Excel
+namespace Bankreader.FileSystem.Excel
 {
     public interface IHousekeepingBookWriter : IDisposable
     {

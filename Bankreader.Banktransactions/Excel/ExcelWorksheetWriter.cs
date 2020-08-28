@@ -1,10 +1,11 @@
 ﻿using Bankreader.Application.Interfaces;
-using BankReader.Data.Excel.Extensions;
+using Bankreader.Application.Models;
+using Bankreader.FileSystem.Excel.Extensions;
 using OfficeOpenXml;
 using System;
 using System.Drawing;
 
-namespace BankReader.Data.Excel
+namespace Bankreader.FileSystem.Excel
 {
     public class ExcelWorksheetWriter : IWorksheetWriter
     {

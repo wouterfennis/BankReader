@@ -1,4 +1,5 @@
-﻿using BankReader.Shared.Models;
+﻿using Bankreader.Application.Models;
+using BankReader.Shared.Models;
 using System;
 using System.Threading.Tasks;
 

@@ -1,14 +1,15 @@
-﻿using BankReader.Data.Utilities;
+﻿using Bankreader.Application.Interfaces;
+using Bankreader.Domain.Models;
 
-namespace BankReader.Data.Providers
+namespace Bankreader.FileSystem.File
 {
     public class FileLocationProvider : IFileLocationProvider
     {
-        private readonly string _categoryRulesLocation;
-        private readonly string _transactionsLocation;
-        private readonly string _workbookLocation;
+        private readonly FilePath _categoryRulesLocation;
+        private readonly FilePath _transactionsLocation;
+        private readonly FilePath _workbookLocation;
 
-        public FileLocationProvider(string categoryRulesLocation, string transactionsLocation, string workbookLocation)
+        public FileLocationProvider(FilePath categoryRulesLocation, FilePath transactionsLocation, FilePath workbookLocation)
         {
             _categoryRulesLocation = categoryRulesLocation;
             _transactionsLocation = transactionsLocation;

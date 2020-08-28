@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace BankReader.Data.Utilities
+namespace Bankreader.Application.Interfaces
 {
     public interface IFileInfoWrapper
     {

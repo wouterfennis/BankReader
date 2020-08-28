@@ -1,4 +1,6 @@
-﻿namespace Bankreader.Application.Models
+﻿using Bankreader.Domain.Models;
+
+namespace Bankreader.Application.Models
 {
     public class HouseholdTransaction
     {

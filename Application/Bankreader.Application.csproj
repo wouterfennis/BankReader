@@ -6,4 +6,8 @@
     <RootNamespace>Bankreader.Application</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Bankreader.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

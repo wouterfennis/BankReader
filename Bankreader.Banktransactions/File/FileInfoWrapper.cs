@@ -1,25 +1,27 @@
-﻿using System.IO;
+﻿using Bankreader.Application.Interfaces;
+using Bankreader.Domain.Models;
+using System.IO;
 
-namespace BankReader.Data.Utilities
+namespace Bankreader.FileSystem.File
 {
     public class FileInfoWrapper : IFileInfoWrapper
     {
-        private readonly string _filePath;
+        private readonly FilePath _filePath;
 
-        public FileInfoWrapper(string filePath)
+        public FileInfoWrapper(FilePath filePath)
         {
             _filePath = filePath;
         }
 
         public Stream OpenRead()
         {
-            var fileInfo = new FileInfo(_filePath);
+            var fileInfo = new FileInfo(_filePath.Value);
             return fileInfo.OpenRead();
         }
 
         public FileInfo ToFileInfo()
         {
-            return new FileInfo(_filePath);
+            return new FileInfo(_filePath.Value);
         }
     }
 }

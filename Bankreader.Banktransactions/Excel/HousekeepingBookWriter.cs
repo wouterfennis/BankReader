@@ -1,11 +1,10 @@
-﻿using BankReader.Shared.Models;
-using BankReader.Data.Providers;
-using BankReader.Data.Utilities;
+﻿using Bankreader.Application.Interfaces;
+using Bankreader.Application.Models;
 using OfficeOpenXml;
 using System;
 using System.Threading.Tasks;
 
-namespace BankReader.Data.Excel
+namespace Bankreader.FileSystem.Excel
 {
     // TODO: In Application layer?
     //This is more than just excel

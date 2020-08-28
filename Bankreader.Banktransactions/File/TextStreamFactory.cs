@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using Bankreader.Application.Interfaces;
+using Bankreader.Infrastructure.Files;
+using System.IO;
 
-namespace BankReader.Data.Utilities
+namespace Bankreader.FileSystem.File
 {
     public class TextStreamFactory : ITextStreamFactory
     {

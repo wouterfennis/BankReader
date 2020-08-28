@@ -1,7 +1,7 @@
 ﻿using OfficeOpenXml;
 using System.Drawing;
 
-namespace BankReader.Data.Excel.Extensions
+namespace Bankreader.FileSystem.Excel.Extensions
 {
     public static class ExcelWorksheetExtensions
     {

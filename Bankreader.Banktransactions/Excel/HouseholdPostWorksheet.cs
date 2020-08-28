@@ -1,11 +1,11 @@
-﻿using Bankreader.Application.Models;
-using BankReader.Shared.Models;
-using BankReader.Shared.Models;
+﻿using Bankreader.Application.Interfaces;
+using Bankreader.Application.Models;
+using Bankreader.Domain.Models;
 using OfficeOpenXml;
 using System;
 using System.Drawing;
 
-namespace BankReader.Data.Excel
+namespace Bankreader.FileSystem.Excel
 {
     public class HouseholdPostWorksheet
     {

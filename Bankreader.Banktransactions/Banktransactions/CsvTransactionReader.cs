@@ -1,7 +1,7 @@
-﻿using Bankreader.Banktransactions.Models;
+﻿using Bankreader.Application.Interfaces;
+using Bankreader.Banktransactions.Mapping;
+using Bankreader.Infrastructure.Files;
 using BankReader.Application.Models;
-using BankReader.Data.Providers;
-using BankReader.Data.Utilities;
 using CsvHelper;
 using System.Collections.Generic;
 using System.Globalization;

@@ -1,6 +1,7 @@
-﻿using System.IO;
+﻿using Bankreader.Application.Interfaces;
+using System.IO;
 
-namespace BankReader.Data.Utilities
+namespace Bankreader.Infrastructure.Files
 {
     /// <summary>
     /// Factory for creating TextStreams

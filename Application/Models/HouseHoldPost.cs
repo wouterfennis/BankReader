@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Bankreader.Domain.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bankreader.Application.Models

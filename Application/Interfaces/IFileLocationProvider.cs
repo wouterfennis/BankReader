@@ -1,6 +1,4 @@
-﻿using BankReader.Data.Utilities;
-
-namespace BankReader.Data.Providers
+﻿namespace Bankreader.Application.Interfaces
 {
     public interface IFileLocationProvider
     {
