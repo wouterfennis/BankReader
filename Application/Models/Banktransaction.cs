@@ -1,7 +1,7 @@
-﻿using BankReader.Shared.Models;
+﻿using Bankreader.Domain.Models;
 using System;
 
-namespace BankReader.Application.Models
+namespace Bankreader.Application.Models
 {
     public class Banktransaction
     {

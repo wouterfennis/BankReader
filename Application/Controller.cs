@@ -5,10 +5,10 @@ namespace Bankreader.Application
     public class Controller
     {
         private readonly IHouseholdService _householdService;
-        private readonly IHouseholdBookWriter _housekeepingBookWriter;
+        private readonly IHousekeepingBookWriter _housekeepingBookWriter;
 
         public Controller(IHouseholdService householdService,
-            IHouseholdBookWriter housekeepingBookWriter)
+            IHousekeepingBookWriter housekeepingBookWriter)
         {
             _householdService = householdService;
             _housekeepingBookWriter = housekeepingBookWriter;

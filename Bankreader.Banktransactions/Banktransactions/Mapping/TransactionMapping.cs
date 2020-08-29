@@ -1,5 +1,5 @@
-﻿using Bankreader.Banktransactions.Converters;
-using BankReader.Application.Models;
+﻿using Bankreader.Application.Models;
+using Bankreader.Banktransactions.Converters;
 using CsvHelper.Configuration;
 
 namespace Bankreader.Banktransactions.Mapping

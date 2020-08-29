@@ -5,18 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Bankreader.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 using Bankreader.FileSystem.File;
+using Bankreader.Application.Services;
+using Bankreader.FileSystem.Excel;
+using Bankreader.FileSystem.Json;
+using Bankreader.Infrastructure.Files;
+using BankReader.Data.Csv;
 
 namespace Bankreader.ConsoleHost
 {
-    //internal class Program
-    //{
-    //    static void Main(string[] args)
-    //    {
-    //        Console.WriteLine("Hello World!");
-
-    //    }
-    //}
-
     [ExcludeFromCodeCoverage]
     static class Program
     {
@@ -30,8 +26,12 @@ namespace Bankreader.ConsoleHost
         {
             ServiceProvider serviceProvider = new ServiceCollection()
                 .AddLogging(builder => builder.AddConsole())
-                .AddTransient<IHouseholdService>()
-                .AddTransient<IHouseholdBookWriter>()
+                .AddTransient<IHouseholdService, HouseholdService>()
+                .AddTransient<ITransactionCategorizer, TransactionCategorizeService>()
+                .AddTransient<ICategoryRuleProvider, JsonCategoryRuleReader>()
+                .AddTransient<ITransactionProvider, CsvTransactionReader>()
+                .AddTransient<ITextStreamFactory, TextStreamFactory>()
+                .AddTransient<IHousekeepingBookWriter, HousekeepingBookWriter>()
                 .AddTransient<IFileLocationProvider>(x => 
                     new FileLocationProvider(arguments.CategoryRulesLocation, arguments.TransactionsLocation, arguments.WorkbookLocation)
                     )

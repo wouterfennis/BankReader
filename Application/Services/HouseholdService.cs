@@ -1,7 +1,7 @@
-﻿using BankReader.Data.Csv;
-using BankReader.Data.Csv.Models;
-using BankReader.Implementation.Services.Interfaces;
-using BankReader.Shared.Models;
+﻿using Bankreader.Application.Interfaces;
+using Bankreader.Application.Models;
+using Bankreader.Application.Services;
+using Bankreader.Domain.Models;
 using System.Linq;
 
 namespace Bankreader.Application.Services

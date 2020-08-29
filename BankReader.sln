@@ -25,13 +25,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{36573F0F-9080-467A-B093-91F6014DD573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bankreader.Application", "Application\Bankreader.Application.csproj", "{6BB72F28-7FDD-4757-83F9-174F7B346463}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bankreader.Application", "Application\Bankreader.Application.csproj", "{6BB72F28-7FDD-4757-83F9-174F7B346463}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bankreader.ConsoleHost", "Bankreader.ConsoleHost\Bankreader.ConsoleHost.csproj", "{256AC50F-1CA0-455C-8588-C90AE449E3F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bankreader.ConsoleHost", "Bankreader.ConsoleHost\Bankreader.ConsoleHost.csproj", "{256AC50F-1CA0-455C-8588-C90AE449E3F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bankreader.Domain", "Domain\Bankreader.Domain.csproj", "{919CB99A-C40D-4763-955B-B596CC0A9FF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bankreader.Domain", "Domain\Bankreader.Domain.csproj", "{919CB99A-C40D-4763-955B-B596CC0A9FF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bankreader.FileSystem", "Bankreader.Banktransactions\Bankreader.FileSystem.csproj", "{3B31F885-7F42-47DE-B74A-543961CE783A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bankreader.FileSystem", "Bankreader.Banktransactions\Bankreader.FileSystem.csproj", "{3B31F885-7F42-47DE-B74A-543961CE783A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bankreader.ConsoleHost.UnitTests", "Bankreader.ConsoleHost.UnitTests\Bankreader.ConsoleHost.UnitTests.csproj", "{894E7149-142C-4420-A27A-AE7AAB948CCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{3B31F885-7F42-47DE-B74A-543961CE783A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B31F885-7F42-47DE-B74A-543961CE783A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B31F885-7F42-47DE-B74A-543961CE783A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{894E7149-142C-4420-A27A-AE7AAB948CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{894E7149-142C-4420-A27A-AE7AAB948CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{894E7149-142C-4420-A27A-AE7AAB948CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{894E7149-142C-4420-A27A-AE7AAB948CCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,6 +102,7 @@ Global
 		{256AC50F-1CA0-455C-8588-C90AE449E3F4} = {36573F0F-9080-467A-B093-91F6014DD573}
 		{919CB99A-C40D-4763-955B-B596CC0A9FF0} = {6457AE06-08FF-4572-B002-29276418FBE8}
 		{3B31F885-7F42-47DE-B74A-543961CE783A} = {17BB4013-0159-427C-AF80-CDAEE508095F}
+		{894E7149-142C-4420-A27A-AE7AAB948CCF} = {36573F0F-9080-467A-B093-91F6014DD573}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F18202FD-C057-49D8-B83D-0C4E7504E963}

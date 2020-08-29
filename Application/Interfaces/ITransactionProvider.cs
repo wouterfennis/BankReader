@@ -1,4 +1,4 @@
-﻿using BankReader.Application.Models;
+﻿using Bankreader.Application.Models;
 using System.Collections.Generic;
 
 namespace Bankreader.Application.Interfaces
