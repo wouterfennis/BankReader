@@ -9,10 +9,10 @@ namespace Bankreader.FileSystem.Json
 {
     public class JsonCategoryRuleReader : ICategoryRuleProvider
     {
-        private readonly Application.Interfaces.IFileLocationProvider _fileLocationProvider;
+        private readonly IFileLocationProvider _fileLocationProvider;
         private readonly ITextStreamFactory _textStreamFactory;
 
-        public JsonCategoryRuleReader(Application.Interfaces.IFileLocationProvider categoryRulesLocationProvider, ITextStreamFactory textStreamFactory)
+        public JsonCategoryRuleReader(IFileLocationProvider categoryRulesLocationProvider, ITextStreamFactory textStreamFactory)
         {
             _fileLocationProvider = categoryRulesLocationProvider;
             _textStreamFactory = textStreamFactory;
