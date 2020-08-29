@@ -1,9 +1,11 @@
 ﻿using Bankreader.Application.Models;
 using Bankreader.Banktransactions.Converters;
 using CsvHelper.Configuration;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Bankreader.Banktransactions.Mapping
 {
+    [ExcludeFromCodeCoverage]
     public class TransactionMapping : ClassMap<Banktransaction>
     {
         public TransactionMapping()

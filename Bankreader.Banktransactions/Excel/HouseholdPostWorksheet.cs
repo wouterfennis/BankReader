@@ -87,7 +87,7 @@ namespace Bankreader.FileSystem.Excel
                 var expensesInMonth = householdPost.GetExpenses(yearMonth);
 
                 worksheetWriter
-                    .SetBackgroundColor(Color.Salmon)
+                    .SetBackgroundColor(Color.FromArgb(255,199,206))
                     .SetFontColor(Color.Black)
                     .Write(-1 * expensesInMonth)
                     .MoveDown()
