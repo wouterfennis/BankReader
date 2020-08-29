@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Bankreader.ConsoleHost": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Git\\BankReader\\test.csv\" \"C:\\Git\\BankReader\\test.json\" \"C:\\Git\\BankReader\\test.xlsx\""
+    }
+  }
+}
