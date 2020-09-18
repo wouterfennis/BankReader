@@ -41,5 +41,11 @@ namespace Bankreader.Domain.Models
         public static Month FromInt32(int value) => new Month(value);
 
         protected override IEnumerable<object> GetEqualityComponents() => new object[] { Value };
+
+        ///</inheritdoc>
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
     }
 }

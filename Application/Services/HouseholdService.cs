@@ -27,8 +27,7 @@ namespace Bankreader.Application.Services
             {
                 var category = _transactionCategorizer.DetermineCategory(transaction.Description);
                 var householdPost = householdBook.RetrieveHouseholdPost(category);
-                var householdTransaction = new HouseholdTransaction(transaction.Amount, YearMonth.FromDateTime(transaction.Date), transaction.TransactionDirection);
-                householdPost.AddTransaction(householdTransaction);
+                householdPost.AddTransaction(transaction.Description, transaction.Amount, YearMonth.FromDateTime(transaction.Date), transaction.TransactionDirection);
                 transactions.Remove(transaction);
             }
 

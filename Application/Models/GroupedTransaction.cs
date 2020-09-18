@@ -2,13 +2,13 @@
 
 namespace Bankreader.Application.Models
 {
-    public class HouseholdTransaction
+    public class GroupedTransaction
     {
         public decimal Amount { get; private set; }
-        internal YearMonth YearMonth { get; }
+        public  YearMonth YearMonth { get; }
         public TransactionDirection TransactionDirection { get; }
 
-        public HouseholdTransaction(decimal amount, YearMonth yearMonth, TransactionDirection transactionDirection)
+        public GroupedTransaction(decimal amount, YearMonth yearMonth, TransactionDirection transactionDirection)
         {
             Amount = amount;
             YearMonth = yearMonth;

@@ -9,7 +9,7 @@ namespace Bankreader.Domain.Models
     public sealed class Year : ValueObject
     {
         private const int MinimalYear = 2000;
-        private const int MaximalYear = 2100;
+        private const int MaximalYear = 3000;
 
         private Year(int value)
         {
@@ -41,5 +41,11 @@ namespace Bankreader.Domain.Models
         public static Year FromInt32(int value) => new Year(value);
 
         protected override IEnumerable<object> GetEqualityComponents() => new object[] { Value };
+
+        ///</inheritdoc>
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
     }
 }

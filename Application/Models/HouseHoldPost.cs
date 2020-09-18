@@ -7,37 +7,41 @@ namespace Bankreader.Application.Models
     public class HouseholdPost
     {
         public Category Category { get; }
-        private IList<HouseholdTransaction> _transactions { get; }
+        public IList<Transaction> OriginalTransactions { get; }
+        public IList<GroupedTransaction> TransactionsPerMonthYear { get; }
 
         public HouseholdPost(Category category)
         {
             Category = category;
-            _transactions = new List<HouseholdTransaction>();
+            OriginalTransactions = new List<Transaction>();
+            TransactionsPerMonthYear = new List<GroupedTransaction>();
         }
 
-        public void AddTransaction(HouseholdTransaction householdTransaction)
+        public void AddTransaction(string description, decimal amount, YearMonth yearMonth, TransactionDirection transactionDirection)
         {
-            var transaction = SearchHouseholdTransaction(householdTransaction.YearMonth, householdTransaction.TransactionDirection);
-            if (transaction == null)
+            OriginalTransactions.Add(new Transaction(description, amount, yearMonth, transactionDirection));
+            var existingGroupedTransaction = SearchGroupedTransaction(yearMonth, transactionDirection);
+            if (existingGroupedTransaction == null)
             {
-                _transactions.Add(householdTransaction);
+                var groupedTransaction = new GroupedTransaction(amount, yearMonth, transactionDirection);
+                TransactionsPerMonthYear.Add(groupedTransaction);
             }
             else
             {
-                transaction.RaiseAmount(householdTransaction.Amount);
+                existingGroupedTransaction.RaiseAmount(amount);
             }
         }
 
-        private HouseholdTransaction SearchHouseholdTransaction(YearMonth yearMonth, TransactionDirection transactionDirection)
+        private GroupedTransaction SearchGroupedTransaction(YearMonth yearMonth, TransactionDirection transactionDirection)
         {
-            return _transactions
+            return TransactionsPerMonthYear
                 .SingleOrDefault(transaction => transaction.YearMonth == yearMonth &&
                 transaction.TransactionDirection == transactionDirection);
         }
 
         public decimal GetExpenses(YearMonth yearMonth)
         {
-            return _transactions
+            return TransactionsPerMonthYear
                 .Where(transaction => transaction.YearMonth == yearMonth)
                 .Where(transaction => transaction.TransactionDirection == TransactionDirection.Af)
                 .Sum(x => x.Amount);
@@ -45,11 +49,10 @@ namespace Bankreader.Application.Models
 
         public decimal GetIncome(YearMonth yearMonth)
         {
-            return _transactions
+            return TransactionsPerMonthYear
                 .Where(transaction => transaction.YearMonth == yearMonth)
                 .Where(transaction => transaction.TransactionDirection == TransactionDirection.Bij)
                 .Sum(x => x.Amount);
         }
-
     }
 }

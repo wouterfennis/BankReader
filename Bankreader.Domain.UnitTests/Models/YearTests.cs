@@ -51,7 +51,7 @@ namespace BankReader.Shared.UnitTests.Models
         [TestMethod]
         public void Create_WithYearAboveMaximum_ThrowsException()
         {
-            int validYear = 2101;
+            int validYear = 3001;
 
             Action action = () => { Year.FromInt32(validYear); };
 

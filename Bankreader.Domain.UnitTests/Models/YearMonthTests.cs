@@ -32,7 +32,7 @@ namespace BankReader.Shared.UnitTests.Models
         [TestMethod]
         public void Create_WithInValidYear_ThrowsException()
         {
-            int invalidYear = 2101;
+            int invalidYear = 3001;
             int month = 12;
 
             Action action = () => { new YearMonth(invalidYear, month); };

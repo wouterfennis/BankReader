@@ -27,5 +27,11 @@ namespace Bankreader.Domain.Models
         public static YearMonth FromDateTime(DateTime date) => new YearMonth(date.Year, date.Month);
 
         protected override IEnumerable<object> GetEqualityComponents() => new object[] { Year, Month };
+
+        ///</inheritdoc>
+        public override string ToString()
+        {
+            return $"{Month}-{Year}";
+        }
     }
 }

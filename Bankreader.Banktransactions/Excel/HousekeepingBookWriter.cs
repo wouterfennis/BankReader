@@ -21,13 +21,18 @@ namespace Bankreader.FileSystem.Excel
         public async Task WriteAsync(HouseholdBook householdBook)
         {
             _excelPackage.Workbook.Properties.Author = "W. Fennis";
-            _excelPackage.Workbook.Properties.Title = "Huishoudboekje";
+            _excelPackage.Workbook.Properties.Title = "Householdbook";
             _excelPackage.Workbook.Properties.Subject = "Export";
             _excelPackage.Workbook.Properties.Created = DateTime.Now;
-            ExcelWorksheet worksheet = _excelPackage.Workbook.Worksheets.Add("Huishoudboek");
+            ExcelWorksheet householdBookWorksheet = _excelPackage.Workbook.Worksheets.Add("Householdbook");
 
-            var householdPostWorksheet = new HouseholdPostWorksheet(worksheet);
+            var householdPostWorksheet = new HouseholdPostWorksheet(householdBookWorksheet);
             householdPostWorksheet.Write(householdBook);
+
+            ExcelWorksheet unknownTransactions = _excelPackage.Workbook.Worksheets.Add("Unknown Transactions");
+            var unknownTransactionsWorksheet = new UnknownTransactionsWorksheet(unknownTransactions);
+            unknownTransactionsWorksheet.Write(householdBook);
+
             await _excelPackage.SaveAsync();
         }
 

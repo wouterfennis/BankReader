@@ -27,54 +27,51 @@ namespace Bankreader.FileSystem.Excel
             "Average a month"
         };
 
-        private readonly ExcelWorksheet _worksheet;
+        private readonly ExcelWorksheetWriter _worksheetWriter;
 
         public HouseholdPostWorksheet(ExcelWorksheet worksheet)
         {
-            _worksheet = worksheet;
+            _worksheetWriter = new ExcelWorksheetWriter(worksheet);
         }
 
         public void Write(HouseholdBook householdBook)
         {
-            var worksheetWriter = new ExcelWorksheetWriter(_worksheet);
+            WriteTitle();
 
-            WriteTitle(worksheetWriter);
-
-            WriteHeaderRow(worksheetWriter);
+            WriteHeaderRow();
 
             foreach (var householdPost in householdBook.HouseholdPosts)
             {
-                PrintHouseholdPost(householdPost, worksheetWriter);
+                PrintHouseholdPost(householdPost);
             }
-
         }
 
-        private void WriteTitle(ExcelWorksheetWriter worksheetWriter)
+        private void WriteTitle()
         {
-            worksheetWriter
+            _worksheetWriter
                 .SetBackgroundColor(Color.DimGray)
                 .Write("Householdposts")
                 .MoveDown();
         }
 
-        private void WriteHeaderRow(IWorksheetWriter worksheetWriter)
+        private void WriteHeaderRow()
         {
             foreach (string headerColumn in _headerColumns)
             {
-                worksheetWriter
+                _worksheetWriter
                     .SetBackgroundColor(Color.WhiteSmoke)
                     .Write(headerColumn)
                     .MoveRight();
             }
 
-            worksheetWriter
+            _worksheetWriter
                 .NewLine();
         }
 
-        private void PrintHouseholdPost(HouseholdPost householdPost, IWorksheetWriter worksheetWriter)
+        private void PrintHouseholdPost(HouseholdPost householdPost)
         {
-            int topIndex = worksheetWriter.CurrentPosition.Y;
-            worksheetWriter
+            int topIndex = _worksheetWriter.CurrentPosition.Y;
+            _worksheetWriter
                 .SetBackgroundColor(Color.LightYellow)
                 .Write(householdPost.Category.ToString())
                 .MoveRight();
@@ -86,7 +83,7 @@ namespace Bankreader.FileSystem.Excel
                 var incomeInMonth = householdPost.GetIncome(yearMonth);
                 var expensesInMonth = householdPost.GetExpenses(yearMonth);
 
-                worksheetWriter
+                _worksheetWriter
                     .SetBackgroundColor(Color.FromArgb(255,199,206))
                     .SetFontColor(Color.Black)
                     .Write(-1 * expensesInMonth)
@@ -96,21 +93,21 @@ namespace Bankreader.FileSystem.Excel
                     .MoveDown()
                     .SetBackgroundColor(Color.Gainsboro)
                     .SetFontColor(Color.Black)
-                    .PlaceFormula(new Point(worksheetWriter.CurrentPosition.X, topIndex), new Point(worksheetWriter.CurrentPosition.X, worksheetWriter.CurrentPosition.Y - 1), FormulaType.SUM)
+                    .PlaceFormula(new Point(_worksheetWriter.CurrentPosition.X, topIndex), new Point(_worksheetWriter.CurrentPosition.X, _worksheetWriter.CurrentPosition.Y - 1), FormulaType.SUM)
                     .MoveRight()
                     .MoveUp()
                     .MoveUp();
             }
 
-            worksheetWriter
-                .PlaceFormula(new Point(2, worksheetWriter.CurrentPosition.Y), new Point(worksheetWriter.CurrentPosition.X - 1, worksheetWriter.CurrentPosition.Y), FormulaType.SUM)
+            _worksheetWriter
+                .PlaceFormula(new Point(2, _worksheetWriter.CurrentPosition.Y), new Point(_worksheetWriter.CurrentPosition.X - 1, _worksheetWriter.CurrentPosition.Y), FormulaType.SUM)
                 .MoveRight()
-                .PlaceFormula(new Point(2, worksheetWriter.CurrentPosition.Y), new Point(worksheetWriter.CurrentPosition.X - 2, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE)
+                .PlaceFormula(new Point(2, _worksheetWriter.CurrentPosition.Y), new Point(_worksheetWriter.CurrentPosition.X - 2, _worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE)
                 .MoveDown()
                 .MoveLeft()
-                .PlaceFormula(new Point(2, worksheetWriter.CurrentPosition.Y), new Point(worksheetWriter.CurrentPosition.X - 1, worksheetWriter.CurrentPosition.Y), FormulaType.SUM)
+                .PlaceFormula(new Point(2, _worksheetWriter.CurrentPosition.Y), new Point(_worksheetWriter.CurrentPosition.X - 1, _worksheetWriter.CurrentPosition.Y), FormulaType.SUM)
                 .MoveRight()
-                .PlaceFormula(new Point(2, worksheetWriter.CurrentPosition.Y), new Point(worksheetWriter.CurrentPosition.X - 2, worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE)
+                .PlaceFormula(new Point(2, _worksheetWriter.CurrentPosition.Y), new Point(_worksheetWriter.CurrentPosition.X - 2, _worksheetWriter.CurrentPosition.Y), FormulaType.AVERAGE)
                 .NewLine()
                 .NewLine()
                 .NewLine();
