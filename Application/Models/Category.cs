@@ -5,7 +5,9 @@
         Unknown,
         Groceries,
         MusicStreaming,
+        Health,
         HealthInsurance,
+        TravelInsurance,
         FuneralInsurance,
         HouseInsurance,
         HomeImprovement,
@@ -15,13 +17,18 @@
         Tax,
         Creditcard,
         Clothing,
+        Cash,
         Amusement,
         MobilePhone,
         Water,
         Electricity,
         Salary,
+        Savings,
         Car,
         Restaurant,
         Purchase,
+        PaymentRequest,
+        Gym,
+        Person
     }
 }

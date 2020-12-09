@@ -28,7 +28,7 @@ namespace BankReader.Data.Csv
             {
                 csv.Configuration.HasHeaderRecord = true;
                 csv.Configuration.RegisterClassMap<TransactionMapping>();
-                csv.Configuration.Delimiter = ",";
+                csv.Configuration.Delimiter = ";";
                 return csv.GetRecords<Banktransaction>().ToList();
             }
         }

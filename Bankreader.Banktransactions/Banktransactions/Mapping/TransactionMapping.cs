@@ -19,6 +19,8 @@ namespace Bankreader.Banktransactions.Mapping
             Map(m => m.Amount).Name("Bedrag (EUR)");
             Map(m => m.MutationType).Name("Mutatiesoort");
             Map(m => m.Comments).Name("Mededelingen");
+            Map(m => m.BalanceAfterMutation).Name("Saldo na mutatie");
+            Map(m => m.Tag).Name("Tag");
         }
     }
 }
