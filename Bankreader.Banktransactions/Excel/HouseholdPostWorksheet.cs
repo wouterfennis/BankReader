@@ -76,7 +76,7 @@ namespace Bankreader.FileSystem.Excel
                 .Write(householdPost.Category.ToString())
                 .MoveRight();
 
-            var year = DateTime.Now.Year;
+            int year = 2020;
             for (int monthNumber = 1; monthNumber < 13; monthNumber++)
             {
                 var yearMonth = new YearMonth(year, monthNumber);
@@ -84,7 +84,7 @@ namespace Bankreader.FileSystem.Excel
                 var expensesInMonth = householdPost.GetExpenses(yearMonth);
 
                 _worksheetWriter
-                    .SetBackgroundColor(Color.FromArgb(255,199,206))
+                    .SetBackgroundColor(Color.FromArgb(255, 199, 206))
                     .SetFontColor(Color.Black)
                     .Write(-1 * expensesInMonth)
                     .MoveDown()
